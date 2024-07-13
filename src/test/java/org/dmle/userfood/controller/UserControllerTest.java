@@ -10,13 +10,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class UserControllerTest {
 
@@ -45,9 +41,7 @@ class UserControllerTest {
 
     @Test
     public void getUsers_returnsResponseEntityWithUsers() {
-        User user1 = new User();
-        User user2 = new User();
-        List<User> users = List.of(user1, user2);
+        List<User> users = List.of(new User(), new User());
 
         Mockito.when(userService.getUsers()).thenReturn(users);
 
