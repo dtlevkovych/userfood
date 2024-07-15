@@ -20,7 +20,7 @@ class PingControllerTest {
     }
 
     @Test
-    void ping_returnsResponseEntity() {
+    void ping_returnsResponseEntityInstance() {
         ResponseEntity<Map<String, String>> result = getController().ping();
         Assertions.assertInstanceOf(ResponseEntity.class, result);
     }

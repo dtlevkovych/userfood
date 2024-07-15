@@ -28,7 +28,7 @@ class UserControllerTest {
     }
 
     @Test
-    public void getUsers_returnsResponseEntity() {
+    public void getUsers_returnsResponseEntityInstance() {
         ResponseEntity<List<User>> result = controller.getUsers();
         Assertions.assertInstanceOf(ResponseEntity.class, result);
     }
