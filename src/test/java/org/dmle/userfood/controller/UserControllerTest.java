@@ -81,29 +81,95 @@ class UserControllerTest {
     }
 
     @Test
-    public void getUser_returnsResponseEntityInstance() {
+    public void getUserById_returnsResponseEntityInstance() {
         String userId = "";
 
-        ResponseEntity<List<User>> result = controller.getUser(userId);
+        ResponseEntity<User> result = controller.getUserById(userId);
         Assertions.assertInstanceOf(ResponseEntity.class, result);
     }
 
     @Test
-    public void getUser_returnsResponseEntityOKStatus() {
+    public void getUserById_returnsResponseEntityOKStatus() {
         String userId = "";
 
-        ResponseEntity<List<User>> result = controller.getUser(userId);
+        ResponseEntity<User> result = controller.getUserById(userId);
         Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
     }
 
     @Test
-    public void getUser_returnsResponseEntityWithUsers() {
-        List<User> user = List.of(new User());
+    public void getUserById_returnsResponseEntityWithUsers() {
+        User user = new User();
         String userId = "";
 
-        Mockito.when(userService.getUser(userId)).thenReturn(user);
+        Mockito.when(userService.getUserById(userId)).thenReturn(user);
 
-        ResponseEntity<List<User>> result = controller.getUser(userId);
-        Assertions.assertEquals(user.size(), result.getData().size());
+        ResponseEntity<User> result = controller.getUserById(userId);
+        Assertions.assertEquals(user, result.getData());
+    }
+
+    @Test
+    public void addUser_returnsResponseEntityInstance() {
+        ResponseEntity<String> result = controller.addUser(Mockito.anyMap());
+        Assertions.assertInstanceOf(ResponseEntity.class, result);
+    }
+
+    @Test
+    public void addUser_returnsResponseEntityOKStatus() {
+        ResponseEntity<String> result = controller.addUser(Mockito.anyMap());
+        Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
+    }
+
+    @Test
+    public void addUser_returnsResponseEntityWithId() {
+        String userId = "12054-14525-9535";
+
+        Mockito.when(userService.addUser(Mockito.anyMap())).thenReturn(userId);
+
+        ResponseEntity<String> result = controller.addUser(Mockito.anyMap());
+        Assertions.assertEquals(userId, result.getData());
+    }
+
+    @Test
+    public void updateUser_returnsResponseEntityInstance() {
+        ResponseEntity<Boolean> result = controller.updateUser(Mockito.anyString(), Mockito.anyMap());
+        Assertions.assertInstanceOf(ResponseEntity.class, result);
+    }
+
+    @Test
+    public void updateUser_returnsResponseEntityOKStatus() {
+        ResponseEntity<Boolean> result = controller.updateUser(Mockito.anyString(), Mockito.anyMap());
+        Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
+    }
+
+    @Test
+    public void updateUser_returnsResponseEntityWithTrue() {
+        Boolean status = true;
+
+        Mockito.when(userService.updateUser(Mockito.anyString(), Mockito.anyMap())).thenReturn(status);
+
+        ResponseEntity<Boolean> result = controller.updateUser(Mockito.anyString(), Mockito.anyMap());
+        Assertions.assertEquals(status, result.getData());
+    }
+
+    @Test
+    public void deleteUser_returnsResponseEntityInstance() {
+        ResponseEntity<Boolean> result = controller.deleteUser(Mockito.anyString());
+        Assertions.assertInstanceOf(ResponseEntity.class, result);
+    }
+
+    @Test
+    public void deleteUser_returnsResponseEntityOKStatus() {
+        ResponseEntity<Boolean> result = controller.deleteUser(Mockito.anyString());
+        Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
+    }
+
+    @Test
+    public void deleteUser_returnsResponseEntityWithTrue() {
+        Boolean status = true;
+
+        Mockito.when(userService.deleteUser(Mockito.anyString())).thenReturn(status);
+
+        ResponseEntity<Boolean> result = controller.deleteUser(Mockito.anyString());
+        Assertions.assertEquals(status, result.getData());
     }
 }

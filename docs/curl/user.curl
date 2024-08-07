@@ -34,9 +34,9 @@ curl -i -X POST "http://127.0.0.1:8080/api/user" \
     -d '{"firstName": "Petro", "lastName": "Levkovych", "dob": 66}'
 
 update:
-curl -i -X PUT "http://127.0.0.1:8080/api/user/5c2a42ae-e848-41d5-851c-1a11b85df82b" \
+curl -i -X PUT "http://127.0.0.1:8080/api/user/6ebdedba-e280-49db-b1fb-229eddcc0a98" \
     -H 'Content-Type: application/json' \
-    -d '{"firstName": "Yurii", "lastName": "Levkovych", "dob": 46}'
+    -d '{"firstName": "DmtR", "lastName": "Levkovych10", "dob": 0}'
 
 delete_user:
-curl -i -X DELETE "http://127.0.0.1:8080/api/user/0f14db66-4728-467c-a90b-4f10eabea202"
+curl -i -X DELETE "http://127.0.0.1:8080/api/user/023c3931-9a42-494c-91eb-63d1ed85141d"

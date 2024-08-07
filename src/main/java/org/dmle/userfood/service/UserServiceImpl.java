@@ -32,16 +32,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUser(String userId) {
-        return userRepository.getUser(userId);
+    public User getUserById(String userId) {
+        return userRepository.getUserById(userId);
     }
 
     @Override
     public String addUser(Map<String, Object> newUser) {
-        return userRepository.addUser(validateNewUser(newUser));
+        return userRepository.addUser(validateUser(newUser));
     }
 
-    private User validateNewUser(Map<String, Object> userMap) {
+    @Override
+    public Boolean updateUser(String userId, Map<String, Object> updateUser) {
+        return userRepository.updateUser(userId, validateUser(updateUser));
+    }
+
+    private User validateUser(Map<String, Object> userMap) {
         User user = new User();
 
         user.setFirstName(MapUtils.getString(userMap, FIRST_NAME));
@@ -66,5 +71,14 @@ public class UserServiceImpl implements UserService {
         }
 
         return user;
+    }
+
+    @Override
+    public Boolean deleteUser(String userId) {
+        if (userRepository.getUserById(userId) == null) {
+            throw new IllegalArgumentException("Not Found");
+        }
+
+        return userRepository.deleteUser(userId);
     }
 }

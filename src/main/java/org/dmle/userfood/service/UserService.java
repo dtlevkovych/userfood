@@ -9,6 +9,8 @@ public interface UserService {
 
     List<User> getUsers();
     List<User> getUsersPagination(Integer start, Integer limit);
-    List<User> getUser(String userId);
+    User getUserById(String userId);
     String addUser(Map<String, Object> newUser);
+    Boolean updateUser(String userId, Map<String, Object> updateUser);
+    Boolean deleteUser(String userId);
 }
