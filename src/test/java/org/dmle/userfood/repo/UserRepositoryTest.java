@@ -27,13 +27,13 @@ class UserRepositoryTest {
     }
 
     @Test
-    public void getUsers_returnsListInstanceById() {
+    public void getUsers_returnsListInstance() {
         List<User> result = repository.getUsers();
         Assertions.assertInstanceOf(List.class, result);
     }
 
     @Test
-    public void getUsers_returnsListWithUsersById() {
+    public void getUsers_returnsListWithUsers() {
         List<User> users = List.of(new User(), new User());
 
         Mockito.when(jdbcTemplate.query(Mockito.anyString(), Mockito.any(UserRowMapper.class))).thenReturn(users);
@@ -44,7 +44,7 @@ class UserRepositoryTest {
     }
 
     @Test
-    public void getUsersPagination_returnsListInstanceById() {
+    public void getUsersPagination_returnsListInstance() {
         Integer start = 2;
         Integer limit = 2;
 
@@ -53,7 +53,7 @@ class UserRepositoryTest {
     }
 
     @Test
-    public void getUsersPagination_returnsListWithUsersById() {
+    public void getUsersPagination_returnsListWithUsers() {
         List<User> users = List.of(new User(), new User());
         Integer start = 2;
         Integer limit = 2;
@@ -63,6 +63,7 @@ class UserRepositoryTest {
         List<User> result = repository.getUsersPagination(start, limit);
         Assertions.assertEquals(users.size(), result.size());
     }
+
     @Test
     public void getUserById_returnsUserInstance() {
         Mockito.when(jdbcTemplate.queryForObject(Mockito.anyString(), Mockito.any(UserRowMapper.class), Mockito.any(Object[].class))).thenReturn(new User());

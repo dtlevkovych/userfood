@@ -84,7 +84,7 @@ class UserServiceTest {
 
         Mockito.when(userRepository.getUserById(Mockito.anyString())).thenReturn(user);
 
-        User result = service.getUserById(Mockito.anyString());
+        User result = service.getUserById("");
         Assertions.assertEquals(user, result);
     }
 
