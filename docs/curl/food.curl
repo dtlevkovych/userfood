@@ -25,9 +25,9 @@ curl -i -X POST "http://127.0.0.1:8080/api/food" \
     -d '{"name": "Tomato", "rateId": 1}'
 
 update:
-curl -i -X PUT "http://127.0.0.1:8080/api/food/2294a585-3761-414a-bd1e-67b0b251d643" \
+curl -i -X PUT "http://127.0.0.1:8080/api/food/de682fec-792d-497d-bb76-e7e9c4c45f41" \
     -H 'Content-Type: application/json' \
-    -d '{"name": "Salad", "rateId": "9817174a-3540-4b58-9c41-e9f1f1d8dd99"}'
+    -d '{"name": "Potato", "rateId": "2"}'
 
 delete_food:
 curl -i -X DELETE "http://127.0.0.1:8080/api/food/123"

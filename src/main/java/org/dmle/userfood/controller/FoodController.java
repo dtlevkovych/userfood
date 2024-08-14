@@ -46,4 +46,9 @@ public class FoodController {
     public ResponseEntity<String> addFood(@RequestBody Map<String, Object> newFood) {
         return ResponseEntity.successResponse(foodService.addFood(newFood));
     }
+
+    @PutMapping(value = "food/{id}")
+    public ResponseEntity<Boolean> updateFood(@PathVariable("id") String foodId, @RequestBody Map<String, Object> updateFood) {
+        return ResponseEntity.successResponse(foodService.updateFood(foodId, updateFood));
+    }
 }

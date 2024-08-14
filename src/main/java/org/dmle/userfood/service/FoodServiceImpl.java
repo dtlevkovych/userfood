@@ -39,6 +39,11 @@ public class FoodServiceImpl implements FoodService{
         return foodRepository.addFood(validateFood(newFood));
     }
 
+    @Override
+    public Boolean updateFood(String foodId, Map<String, Object> updateFood) {
+        return foodRepository.updateFood(foodId, validateFood(updateFood));
+    }
+
     private Food validateFood(Map<String, Object> foodMap) {
         Food food = new Food();
 

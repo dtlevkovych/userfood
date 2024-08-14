@@ -21,6 +21,8 @@ public class FoodRepositoryImpl implements FoodRepository{
     public List<Food> getFoods(String phrase) {
         String sql = "select * from food";
 
+        System.out.println(phrase);
+
         String food_params = "";
         if (phrase != null) {
             food_params = ("%" + phrase + "%");
@@ -70,5 +72,16 @@ public class FoodRepositoryImpl implements FoodRepository{
             return id;
         } catch (DataAccessException ignored) {}
         return null;
+    }
+
+    @Override
+    public Boolean updateFood(String foodId, Food updateFood) {
+        String sql = "update food set name=?, rate_id=? where id=?";
+
+        try {
+            jdbcTemplate.update(sql, updateFood.getName(), updateFood.getRateId(), foodId);
+            return true;
+        } catch (DataAccessException ignored) {}
+        return false;
     }
 }

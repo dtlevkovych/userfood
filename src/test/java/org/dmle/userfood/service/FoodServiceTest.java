@@ -163,4 +163,21 @@ public class FoodServiceTest {
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> service.addFood(foodMap));
     }
+
+    @Test
+    public void updateFood_returnsBooleanInstance() {
+        String foodId = "123-235673-123";
+        Boolean status = true;
+
+        Map<String, Object> foodMap = new HashMap<>();
+        foodMap.put(FoodServiceImpl.NAME, "Some Name");
+        foodMap.put(FoodServiceImpl.RATE_ID, "Some Rate Id");
+
+        Mockito.when(foodRepository.getFoodsByName(Mockito.anyString())).thenReturn(Collections.emptyList());
+        Mockito.when(foodRepository.updateFood(Mockito.anyString(), Mockito.any())).thenReturn(status);
+
+        Boolean result = service.updateFood(foodId, foodMap);
+
+        Assertions.assertEquals(result, status);
+    }
 }

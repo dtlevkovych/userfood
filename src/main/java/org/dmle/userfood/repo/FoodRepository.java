@@ -11,4 +11,5 @@ public interface FoodRepository {
     Food getFoodById(String foodId);
     List<Food> getFoodsByName(String name);
     String addFood(Food newFood);
+    Boolean updateFood(String foodId, Food updateFood);
 }

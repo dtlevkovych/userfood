@@ -11,4 +11,5 @@ public interface FoodService {
     List<Food> getFoodsPagination(Integer start, Integer limit);
     Food getFoodById(String foodId);
     String addFood(Map<String, Object> newFood);
+    Boolean updateFood(String foodId, Map<String, Object> updateFood);
 }
