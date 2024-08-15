@@ -180,4 +180,30 @@ public class FoodServiceTest {
 
         Assertions.assertEquals(result, status);
     }
+
+    @Test
+    public void deleteFood_returnsBooleanInstance() {
+        Mockito.when(foodRepository.getFoodById(Mockito.anyString())).thenReturn(new Food());
+
+        Boolean result = service.deleteFood(Mockito.anyString());
+        Assertions.assertInstanceOf(Boolean.class, result);
+    }
+
+    @Test
+    public void deleteFood_nonExistFood_throwsException() {
+        Mockito.when(foodRepository.getFoodById(Mockito.anyString())).thenReturn(null);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.deleteFood(Mockito.anyString()));
+    }
+
+    @Test
+    public void deleteFood_existFood_returnsTrue() {
+        Boolean status = true;
+
+        Mockito.when(foodRepository.getFoodById(Mockito.anyString())).thenReturn(new Food());
+        Mockito.when(foodRepository.deleteFood(Mockito.anyString())).thenReturn(status);
+
+        Boolean result = service.deleteFood(Mockito.anyString());
+        Assertions.assertEquals(result, status);
+    }
 }

@@ -65,4 +65,13 @@ public class FoodServiceImpl implements FoodService{
 
         return food;
     }
+
+    @Override
+    public Boolean deleteFood(String foodId) {
+        if (foodRepository.getFoodById(foodId) == null) {
+            throw new IllegalArgumentException("Not Found");
+        }
+
+        return foodRepository.deleteFood(foodId);
+    }
 }

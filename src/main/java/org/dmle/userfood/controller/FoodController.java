@@ -51,4 +51,9 @@ public class FoodController {
     public ResponseEntity<Boolean> updateFood(@PathVariable("id") String foodId, @RequestBody Map<String, Object> updateFood) {
         return ResponseEntity.successResponse(foodService.updateFood(foodId, updateFood));
     }
+
+    @DeleteMapping(value = "food/{id}")
+    public ResponseEntity<Boolean> deleteFood(@PathVariable("id") String foodId) {
+        return ResponseEntity.successResponse(foodService.deleteFood(foodId));
+    }
 }

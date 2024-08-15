@@ -30,4 +30,4 @@ curl -i -X PUT "http://127.0.0.1:8080/api/food/de682fec-792d-497d-bb76-e7e9c4c45
     -d '{"name": "Potato", "rateId": "2"}'
 
 delete_food:
-curl -i -X DELETE "http://127.0.0.1:8080/api/food/123"
+curl -i -X DELETE "http://127.0.0.1:8080/api/food/de682fec-792d-497d-bb76-e7e9c4c45f41"

@@ -84,4 +84,15 @@ public class FoodRepositoryImpl implements FoodRepository{
         } catch (DataAccessException ignored) {}
         return false;
     }
+
+    @Override
+    public Boolean deleteFood(String foodId) {
+        String sql = "delete from food where id=?";
+
+        try {
+            jdbcTemplate.update(sql, foodId);
+            return true;
+        } catch (DataAccessException ignored) {}
+        return false;
+    }
 }

@@ -135,4 +135,18 @@ public class FoodRepositoryTest {
         Boolean result = repository.updateFood("", new Food());
         Assertions.assertEquals(result, true);
     }
+
+    @Test
+    public void deleteFood_returnsBooleanInstance() {
+        Boolean result = repository.deleteFood("");
+        Assertions.assertInstanceOf(Boolean.class, result);
+    }
+
+    @Test
+    public void deleteFood_returnsTrue() {
+        Mockito.when(jdbcTemplate.update(Mockito.anyString(), Mockito.anyString())).thenReturn(1);
+
+        Boolean result = repository.deleteFood("");
+        Assertions.assertEquals(result, true);
+    }
 }
