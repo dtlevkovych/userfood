@@ -1,0 +1,10 @@
+package org.dmle.userfood.service;
+
+import org.dmle.userfood.domain.Rate;
+
+import java.util.List;
+
+public interface RateService {
+
+    List<Rate> getRates();
+}

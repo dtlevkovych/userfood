@@ -1,0 +1,27 @@
+package org.dmle.userfood.repo;
+
+import org.dmle.userfood.domain.Rate;
+import org.dmle.userfood.domain.RateRowMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import java.util.Collections;
+import java.util.List;
+
+@Repository
+public class RateRepositoryImpl implements RateRepository {
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @Override
+    public List<Rate> getRates() {
+        String sql = "select * from rate";
+        try {
+            return jdbcTemplate.query(sql, new RateRowMapper());
+        } catch (EmptyResultDataAccessException ignored) {}
+        return Collections.emptyList();
+    }
+}
