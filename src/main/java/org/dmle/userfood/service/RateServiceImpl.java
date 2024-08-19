@@ -17,4 +17,9 @@ public class RateServiceImpl implements RateService {
     public List<Rate> getRates() {
         return rateRepository.getRates();
     }
+
+    @Override
+    public List<Rate> getRatesPagination(Integer start, Integer limit) {
+        return rateRepository.getRatesPagination(start, limit);
+    }
 }

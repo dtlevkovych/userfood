@@ -24,4 +24,13 @@ public class RateRepositoryImpl implements RateRepository {
         } catch (EmptyResultDataAccessException ignored) {}
         return Collections.emptyList();
     }
+
+    @Override
+    public List<Rate> getRatesPagination(Integer start, Integer limit) {
+        String sql = "select * from rate order by value limit ?,?";
+        try {
+            return jdbcTemplate.query(sql , new RateRowMapper(), start, limit);
+        } catch (EmptyResultDataAccessException ignored) {}
+        return Collections.emptyList();
+    }
 }

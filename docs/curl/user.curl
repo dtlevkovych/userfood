@@ -2,7 +2,6 @@ get_users:
 curl -i -X GET "http://127.0.0.1:8080/api/users"
 
 get_users_pagination:
-curl -i -X GET "http://127.0.0.1:8080/api/users/pagination?limit=2"
 curl -i -X GET "http://127.0.0.1:8080/api/users/pagination?limit=2&page=1"
 
 get_user:

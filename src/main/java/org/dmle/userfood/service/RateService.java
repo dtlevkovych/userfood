@@ -7,4 +7,5 @@ import java.util.List;
 public interface RateService {
 
     List<Rate> getRates();
+    List<Rate> getRatesPagination(Integer start, Integer limit);
 }

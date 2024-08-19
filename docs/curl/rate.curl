@@ -5,7 +5,6 @@ get_rate:
 curl -i -X GET "http://127.0.0.1:8080/api/rate/69fe4481-8c73-4630-ae3b-feea7619af12"
 
 get_users_pagination:
-curl -i -X GET "http://127.0.0.1:8080/api/rates/pagination?limit=2"
 curl -i -X GET "http://127.0.0.1:8080/api/rates/pagination?limit=2&page=1"
 
 add rate:
