@@ -79,4 +79,31 @@ public class RateControllerTest {
         ResponseEntity<List<Rate>> result = controller.getRatesPagination(limit, page);
         Assertions.assertEquals(rates.size(), result.getData().size());
     }
+
+    @Test
+    public void getRateById_returnsResponseEntityInstance() {
+        String rateId = "";
+
+        ResponseEntity<Rate> result = controller.getRateById(rateId);
+        Assertions.assertInstanceOf(ResponseEntity.class, result);
+    }
+
+    @Test
+    public void getRateById_returnsResponseEntityOKStatus() {
+        String rateId = "";
+
+        ResponseEntity<Rate> result = controller.getRateById(rateId);
+        Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
+    }
+
+    @Test
+    public void getRateById_returnsResponseEntityWithRates() {
+        Rate rate = new Rate();
+        String rateId = "";
+
+        Mockito.when(rateService.getRateById(rateId)).thenReturn(rate);
+
+        ResponseEntity<Rate> result = controller.getRateById(rateId);
+        Assertions.assertEquals(rate, result.getData());
+    }
 }

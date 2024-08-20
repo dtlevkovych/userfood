@@ -63,4 +63,23 @@ public class RateRepositoryTest {
         List<Rate> result = repository.getRatesPagination(start, limit);
         Assertions.assertEquals(rates.size(), result.size());
     }
+
+    @Test
+    public void getRateById_returnsRateInstance() {
+        Mockito.when(jdbcTemplate.queryForObject(Mockito.anyString(), Mockito.any(RateRowMapper.class), Mockito.any(Object[].class))).thenReturn(new Rate());
+
+        Rate result = repository.getRateById("");
+        Assertions.assertInstanceOf(Rate.class, result);
+    }
+
+    @Test
+    public void getRateById_returnsListWithRates() {
+        Rate rate = new Rate();
+        String rateId = "";
+
+        Mockito.when(jdbcTemplate.queryForObject(Mockito.anyString(), Mockito.any(RateRowMapper.class), Mockito.any(Object[].class))).thenReturn(rate);
+
+        Rate result = repository.getRateById(rateId);
+        Assertions.assertEquals(rate, result);
+    }
 }

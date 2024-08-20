@@ -2,9 +2,9 @@ get_rates:
 curl -i -X GET "http://127.0.0.1:8080/api/rates"
 
 get_rate:
-curl -i -X GET "http://127.0.0.1:8080/api/rate/69fe4481-8c73-4630-ae3b-feea7619af12"
+curl -i -X GET "http://127.0.0.1:8080/api/rate/9817174a-3540-4b58-9c41-e9f1f1d8dd99"
 
-get_users_pagination:
+get_rates_pagination:
 curl -i -X GET "http://127.0.0.1:8080/api/rates/pagination?limit=2&page=1"
 
 add rate:
@@ -27,5 +27,5 @@ curl -i -X PUT "http://127.0.0.1:8080/api/rate/4a08bcd6-124e-4667-a692-1f6907657
     -d '{"name": "excellent", "value": 1, "colorHex": "#00FF00"}'
 
 
-delete_user:
+delete_rate:
 curl -i -X DELETE "http://127.0.0.1:8080/api/rate/9817174a-3540-4b58-9c41-e9f1f1d8dd99"

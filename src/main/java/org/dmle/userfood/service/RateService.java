@@ -8,4 +8,5 @@ public interface RateService {
 
     List<Rate> getRates();
     List<Rate> getRatesPagination(Integer start, Integer limit);
+    Rate getRateById(String rateId);
 }

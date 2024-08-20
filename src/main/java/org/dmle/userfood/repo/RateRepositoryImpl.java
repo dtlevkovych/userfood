@@ -33,4 +33,13 @@ public class RateRepositoryImpl implements RateRepository {
         } catch (EmptyResultDataAccessException ignored) {}
         return Collections.emptyList();
     }
+
+    @Override
+    public Rate getRateById(String rateId) {
+        String sql = "select * from rate where id=? limit 0,1";
+        try {
+            return jdbcTemplate.queryForObject(sql, new RateRowMapper(), rateId);
+        } catch (EmptyResultDataAccessException ignored) {}
+        return null;
+    }
 }

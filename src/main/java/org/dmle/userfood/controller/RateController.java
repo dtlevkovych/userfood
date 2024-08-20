@@ -6,6 +6,7 @@ import org.dmle.userfood.domain.ResponseEntity;
 import org.dmle.userfood.service.RateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,5 +36,10 @@ public class RateController {
         Integer start = page * limit;
 
         return ResponseEntity.successResponse(rateService.getRatesPagination(start, limit));
+    }
+
+    @GetMapping(value = "rate/{id}")
+    public ResponseEntity<Rate> getRateById(@PathVariable("id") String rateId) {
+        return ResponseEntity.successResponse(rateService.getRateById(rateId));
     }
 }

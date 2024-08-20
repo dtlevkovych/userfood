@@ -55,7 +55,7 @@ public class RateServiceTest {
     }
 
     @Test
-    public void getRatesPagination_returnsListWitRates() {
+    public void getRatesPagination_returnsListWithRates() {
         List<Rate> rates = List.of(new Rate(), new Rate());
         Integer start = 2;
         Integer limit = 2;
@@ -64,5 +64,25 @@ public class RateServiceTest {
 
         List<Rate> result = service.getRatesPagination(start, limit);
         Assertions.assertEquals(rates.size(), result.size());
+    }
+
+    @Test
+    public void getRateById_returnsListInstance() {
+        String rateId = "";
+
+        Mockito.when(rateRepository.getRateById(rateId)).thenReturn(new Rate());
+
+        Rate result = service.getRateById(rateId);
+        Assertions.assertInstanceOf(Rate.class, result);
+    }
+
+    @Test
+    public void getRateById_returnsListWithRates() {
+        Rate rate = new Rate();
+
+        Mockito.when(rateRepository.getRateById(Mockito.anyString())).thenReturn(rate);
+
+        Rate result = service.getRateById("");
+        Assertions.assertEquals(rate, result);
     }
 }

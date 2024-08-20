@@ -1,6 +1,7 @@
 package org.dmle.userfood.service;
 
 import org.dmle.userfood.domain.Rate;
+
 import org.dmle.userfood.repo.RateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,5 +22,10 @@ public class RateServiceImpl implements RateService {
     @Override
     public List<Rate> getRatesPagination(Integer start, Integer limit) {
         return rateRepository.getRatesPagination(start, limit);
+    }
+
+    @Override
+    public Rate getRateById(String rateId) {
+        return rateRepository.getRateById(rateId);
     }
 }
