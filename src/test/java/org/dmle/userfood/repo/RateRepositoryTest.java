@@ -82,4 +82,22 @@ public class RateRepositoryTest {
         Rate result = repository.getRateById(rateId);
         Assertions.assertEquals(rate, result);
     }
+
+    @Test
+    public void addRate_returnsStringInstance() {
+        Rate newRate = new Rate();
+
+        String result = repository.addRate(newRate);
+        Assertions.assertInstanceOf(String.class, result);
+    }
+
+    @Test
+    public void addRate_returnsRateId() {
+        Rate newRate = new Rate();
+
+        Mockito.when(jdbcTemplate.update(Mockito.anyString(), Mockito.anyString(), Mockito.anyInt(), Mockito.anyString(), Mockito.anyLong())).thenReturn(1);
+
+        String result = repository.addRate(newRate);
+        Assertions.assertNotNull(result);
+    }
 }

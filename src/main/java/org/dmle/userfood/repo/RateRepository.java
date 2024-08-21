@@ -9,4 +9,5 @@ public interface RateRepository {
     List<Rate> getRates();
     List<Rate> getRatesPagination(Integer start, Integer limit);
     Rate getRateById(String rateId);
+    String addRate(Rate newRate);
 }

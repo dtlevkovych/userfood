@@ -12,7 +12,9 @@ import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RateServiceTest {
 
@@ -84,5 +86,89 @@ public class RateServiceTest {
 
         Rate result = service.getRateById("");
         Assertions.assertEquals(rate, result);
+    }
+
+    @Test
+    public void addRate_validRate_returnsNewRateId() {
+        String rateId = "123-293121";
+
+        Map<String, Object> rateMap = new HashMap<>();
+        rateMap.put(RateServiceImpl.NAME, "Some Rate Name");
+        rateMap.put(RateServiceImpl.VALUE, 1);
+        rateMap.put(RateServiceImpl.COLOR_HEX, "Some Color Hex");
+
+        Mockito.when(rateRepository.addRate(Mockito.any())).thenReturn(rateId);
+
+        String result = service.addRate(rateMap);
+
+        Assertions.assertEquals(rateId, result);
+    }
+
+    @Test
+    public void addRAte_nonValidName_throwsException() {
+        String rateId = "123-293121";
+
+        Map<String, Object> rateMap = new HashMap<>();
+        rateMap.put(RateServiceImpl.VALUE, 1);
+        rateMap.put(RateServiceImpl.COLOR_HEX, "Some Color Hex");
+
+        Mockito.when(rateRepository.addRate(Mockito.any())).thenReturn(rateId);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addRate(rateMap));
+    }
+
+    @Test
+    public void addRate_nonValidValue_throwsException() {
+        String rateId = "123-293121";
+
+        Map<String, Object> rateMap = new HashMap<>();
+        rateMap.put(RateServiceImpl.NAME, "Some Rate Name");
+        rateMap.put(RateServiceImpl.COLOR_HEX, "Some Color Hex");
+
+        Mockito.when(rateRepository.addRate(Mockito.any())).thenReturn(rateId);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addRate(rateMap));
+    }
+
+    @Test
+    public void addRate_nonValidColorHex_throwsException() {
+        String rateId = "123-293121";
+
+        Map<String, Object> rateMap = new HashMap<>();
+        rateMap.put(RateServiceImpl.NAME, "Some Rate Name");
+        rateMap.put(RateServiceImpl.VALUE, 1);
+
+        Mockito.when(rateRepository.addRate(Mockito.any())).thenReturn(rateId);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addRate(rateMap));
+    }
+
+    @Test
+    public void addRate_validRateNotExist_returnsRateId() {
+        String rateId = "123-293121";
+
+        Map<String, Object> rateMap = new HashMap<>();
+        rateMap.put(RateServiceImpl.NAME, "Some Rate Name");
+        rateMap.put(RateServiceImpl.VALUE, 1);
+        rateMap.put(RateServiceImpl.COLOR_HEX, "Some Color Hex");;
+
+        Mockito.when(rateRepository.addRate(Mockito.any())).thenReturn(rateId);
+
+        String result = service.addRate(rateMap);
+
+        Assertions.assertEquals(result, rateId);
+    }
+
+    @Test
+    public void addRate_nonValidRateExist_throwsException() {
+        String rateId = "123-293121";
+
+        Map<String, Object> rateMap = new HashMap<>();
+        rateMap.put(RateServiceImpl.NAME, "Some Rate Name");
+        rateMap.put(RateServiceImpl.COLOR_HEX, "Some Color Hex");;
+
+        Mockito.when(rateRepository.addRate(Mockito.any())).thenReturn(rateId);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addRate(rateMap));
     }
 }

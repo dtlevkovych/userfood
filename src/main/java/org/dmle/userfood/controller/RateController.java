@@ -5,12 +5,10 @@ import org.dmle.userfood.domain.Rate;
 import org.dmle.userfood.domain.ResponseEntity;
 import org.dmle.userfood.service.RateService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @ApiPrefixController
@@ -41,5 +39,10 @@ public class RateController {
     @GetMapping(value = "rate/{id}")
     public ResponseEntity<Rate> getRateById(@PathVariable("id") String rateId) {
         return ResponseEntity.successResponse(rateService.getRateById(rateId));
+    }
+
+    @PostMapping(value = "rate")
+    public ResponseEntity<String> addRate(@RequestBody Map<String, Object> newRate) {
+        return ResponseEntity.successResponse(rateService.addRate(newRate));
     }
 }

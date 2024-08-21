@@ -106,4 +106,26 @@ public class RateControllerTest {
         ResponseEntity<Rate> result = controller.getRateById(rateId);
         Assertions.assertEquals(rate, result.getData());
     }
+
+    @Test
+    public void addRate_returnsResponseEntityInstance() {
+        ResponseEntity<String> result = controller.addRate(Mockito.anyMap());
+        Assertions.assertInstanceOf(ResponseEntity.class, result);
+    }
+
+    @Test
+    public void addRate_returnsResponseEntityOKStatus() {
+        ResponseEntity<String> result = controller.addRate(Mockito.anyMap());
+        Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
+    }
+
+    @Test
+    public void addRate_returnsResponseEntityWithId() {
+        String rateId = "1254-14535";
+
+        Mockito.when(rateService.addRate(Mockito.anyMap())).thenReturn(rateId);
+
+        ResponseEntity<String> result = controller.addRate(Mockito.anyMap());
+        Assertions.assertEquals(rateId, result.getData());
+    }
 }
