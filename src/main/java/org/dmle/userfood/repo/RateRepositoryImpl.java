@@ -57,4 +57,22 @@ public class RateRepositoryImpl implements RateRepository {
         } catch (DataAccessException ignored) {}
         return null;
     }
+
+    @Override
+    public Rate getRateByName(String name) {
+        String sql = "select * from rate where name=? limit 0,1";
+        try {
+            return jdbcTemplate.queryForObject(sql, new RateRowMapper(), name);
+        } catch (EmptyResultDataAccessException ignored) {}
+        return null;
+    }
+
+    @Override
+    public Rate getRateByValue(Integer value) {
+        String sql = "select * from rate where value=? limit 0,1";
+        try {
+            return jdbcTemplate.queryForObject(sql, new RateRowMapper(), value);
+        } catch (EmptyResultDataAccessException ignored) {}
+        return null;
+    }
 }

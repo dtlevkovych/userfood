@@ -59,6 +59,19 @@ public class RateServiceImpl implements RateService {
             throw new IllegalArgumentException("Color Hex");
         }
 
+        checkIfExistRate(rate.getName(), rate.getValue());
+
         return rate;
+    }
+
+    @Override
+    public void checkIfExistRate(String name, Integer value) {
+        if (rateRepository.getRateByName(name) != null) {
+            throw new IllegalArgumentException("Rate with such name exist.");
+        }
+
+        if (rateRepository.getRateByValue(value) != null) {
+            throw new IllegalArgumentException("Rate with such value exist.");
+        }
     }
 }

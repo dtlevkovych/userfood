@@ -10,4 +10,6 @@ public interface RateRepository {
     List<Rate> getRatesPagination(Integer start, Integer limit);
     Rate getRateById(String rateId);
     String addRate(Rate newRate);
+    Rate getRateByName(String name);
+    Rate getRateByValue(Integer value);
 }
