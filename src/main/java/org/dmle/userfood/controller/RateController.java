@@ -45,4 +45,9 @@ public class RateController {
     public ResponseEntity<String> addRate(@RequestBody Map<String, Object> newRate) {
         return ResponseEntity.successResponse(rateService.addRate(newRate));
     }
+
+    @PutMapping(value = "rate/{id}")
+    public ResponseEntity<Boolean> updateRate(@PathVariable("id") String rateId, @RequestBody Map<String, Object> updateRate) {
+        return ResponseEntity.successResponse(rateService.updateRate(rateId, updateRate));
+    }
 }

@@ -40,6 +40,11 @@ public class RateServiceImpl implements RateService {
         return rateRepository.addRate(validateRate(newRate));
     }
 
+    @Override
+    public Boolean updateRate(String rateId, Map<String, Object> updateRate) {
+        return rateRepository.updateRate(rateId, validateRate(updateRate));
+    }
+
     private Rate validateRate(Map<String, Object> rateMap) {
         Rate rate = new Rate();
 

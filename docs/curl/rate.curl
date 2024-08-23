@@ -22,9 +22,9 @@ curl -i -X POST "http://127.0.0.1:8080/api/rate" \
 
 
 update:
-curl -i -X PUT "http://127.0.0.1:8080/api/rate/4a08bcd6-124e-4667-a692-1f690765705a" \
+curl -i -X PUT "http://127.0.0.1:8080/api/rate/a56adc7f-cb67-470b-bc47-6663295bbe57" \
     -H 'Content-Type: application/json' \
-    -d '{"name": "excellent", "value": 1, "colorHex": "#00FF00"}'
+    -d '{"name": "e", "value": 1, "colorHex": "#00FF00"}'
 
 
 delete_rate:

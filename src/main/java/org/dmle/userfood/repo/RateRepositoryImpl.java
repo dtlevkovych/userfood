@@ -2,6 +2,7 @@ package org.dmle.userfood.repo;
 
 import org.dmle.userfood.domain.Rate;
 import org.dmle.userfood.domain.RateRowMapper;
+import org.dmle.userfood.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -46,19 +47,6 @@ public class RateRepositoryImpl implements RateRepository {
     }
 
     @Override
-    public String addRate(Rate newRate) {
-        String sql = "insert into rate (id, name, value, color_hex, created_at) values (?, ?, ?, ?, ?)";
-
-        String id = String.valueOf(UUID.randomUUID());
-
-        try {
-            jdbcTemplate.update(sql, id, newRate.getName(), newRate.getValue(), newRate.getColorHex(), System.currentTimeMillis());
-            return id;
-        } catch (DataAccessException ignored) {}
-        return null;
-    }
-
-    @Override
     public Rate getRateByName(String name) {
         String sql = "select * from rate where name=? limit 0,1";
         try {
@@ -74,5 +62,29 @@ public class RateRepositoryImpl implements RateRepository {
             return jdbcTemplate.queryForObject(sql, new RateRowMapper(), value);
         } catch (EmptyResultDataAccessException ignored) {}
         return null;
+    }
+
+    @Override
+    public String addRate(Rate newRate) {
+        String sql = "insert into rate (id, name, value, color_hex, created_at) values (?, ?, ?, ?, ?)";
+
+        String id = String.valueOf(UUID.randomUUID());
+
+        try {
+            jdbcTemplate.update(sql, id, newRate.getName(), newRate.getValue(), newRate.getColorHex(), System.currentTimeMillis());
+            return id;
+        } catch (DataAccessException ignored) {}
+        return null;
+    }
+
+    @Override
+    public Boolean updateRate(String rateId, Rate updateRate) {
+        String sql = "update rate set name=?, value=?, color_hex=? where id=?";
+
+        try {
+            jdbcTemplate.update(sql, updateRate.getName(), updateRate.getValue(), updateRate.getColorHex(), rateId);
+            return true;
+        } catch (DataAccessException ignored) {}
+        return false;
     }
 }

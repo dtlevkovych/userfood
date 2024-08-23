@@ -2,6 +2,7 @@ package org.dmle.userfood.repo;
 
 import org.dmle.userfood.domain.Rate;
 import org.dmle.userfood.domain.RateRowMapper;
+import org.dmle.userfood.domain.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -99,5 +100,41 @@ public class RateRepositoryTest {
 
         String result = repository.addRate(newRate);
         Assertions.assertNotNull(result);
+    }
+
+    @Test
+    public void getRateByName_returnsRateInstance() {
+        Mockito.when(jdbcTemplate.queryForObject(Mockito.anyString(), Mockito.any(RateRowMapper.class), Mockito.any(Object[].class))).thenReturn(new Rate());
+
+        Rate result = repository.getRateByName("");
+        Assertions.assertInstanceOf(Rate.class, result);
+    }
+
+    @Test
+    public void getRateByName_returnsRate() {
+        Rate rate = new Rate();
+
+        Mockito.when(jdbcTemplate.queryForObject(Mockito.anyString(), Mockito.any(RateRowMapper.class), Mockito.any(Object[].class))).thenReturn(rate);
+
+        Rate result = repository.getRateByName("");
+        Assertions.assertEquals(rate, result);
+    }
+
+    @Test
+    public void getRateByValue_returnsRateInstance() {
+        Mockito.when(jdbcTemplate.queryForObject(Mockito.anyString(), Mockito.any(RateRowMapper.class), Mockito.any(Object[].class))).thenReturn(new Rate());
+
+        Rate result = repository.getRateByValue(1);
+        Assertions.assertInstanceOf(Rate.class, result);
+    }
+
+    @Test
+    public void getRateByValue_returnsRate() {
+        Rate rate = new Rate();
+
+        Mockito.when(jdbcTemplate.queryForObject(Mockito.anyString(), Mockito.any(RateRowMapper.class), Mockito.any(Object[].class))).thenReturn(rate);
+
+        Rate result = repository.getRateByValue(1);
+        Assertions.assertEquals(rate, result);
     }
 }

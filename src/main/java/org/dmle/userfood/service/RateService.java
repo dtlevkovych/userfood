@@ -11,5 +11,6 @@ public interface RateService {
     List<Rate> getRatesPagination(Integer start, Integer limit);
     Rate getRateById(String rateId);
     String addRate(Map<String, Object> newRate);
+    Boolean updateRate(String rateId, Map<String, Object> updateRate);
     void checkIfExistRate(String name, Integer value);
 }

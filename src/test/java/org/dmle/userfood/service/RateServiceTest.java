@@ -150,7 +150,7 @@ public class RateServiceTest {
         Map<String, Object> rateMap = new HashMap<>();
         rateMap.put(RateServiceImpl.NAME, "Some Rate Name");
         rateMap.put(RateServiceImpl.VALUE, 1);
-        rateMap.put(RateServiceImpl.COLOR_HEX, "Some Color Hex");;
+        rateMap.put(RateServiceImpl.COLOR_HEX, "Some Color Hex");
 
         Mockito.when(rateRepository.addRate(Mockito.any())).thenReturn(rateId);
 
@@ -165,10 +165,24 @@ public class RateServiceTest {
 
         Map<String, Object> rateMap = new HashMap<>();
         rateMap.put(RateServiceImpl.NAME, "Some Rate Name");
-        rateMap.put(RateServiceImpl.COLOR_HEX, "Some Color Hex");;
+        rateMap.put(RateServiceImpl.COLOR_HEX, "Some Color Hex");
 
         Mockito.when(rateRepository.addRate(Mockito.any())).thenReturn(rateId);
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> service.addRate(rateMap));
+    }
+
+    @Test
+    public void checkIfExistRate_existName_throwsException() {
+        Mockito.when(rateRepository.getRateByName(Mockito.anyString())).thenReturn(new Rate());
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.checkIfExistRate("", 1));
+    }
+
+    @Test
+    public void checkIfExistRate_existValue_throwsException() {
+        Mockito.when(rateRepository.getRateByValue(Mockito.anyInt())).thenReturn(new Rate());
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.checkIfExistRate("", 1));
     }
 }
