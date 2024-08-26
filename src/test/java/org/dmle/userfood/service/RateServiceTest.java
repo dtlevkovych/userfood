@@ -173,6 +173,24 @@ public class RateServiceTest {
     }
 
     @Test
+    public void updateRate_returnsBooleanInstance() {
+        Boolean result = true;
+        String rateId = "123-293121";
+
+        Map<String, Object> rateMap = new HashMap<>();
+        rateMap.put(RateServiceImpl.NAME, "Some Rate Name");
+        rateMap.put(RateServiceImpl.VALUE, 1);
+        rateMap.put(RateServiceImpl.COLOR_HEX, "Some Color Hex");
+
+        Mockito.when(rateRepository.getRateByName(Mockito.anyString())).thenReturn(null);
+        Mockito.when(rateRepository.updateRate(Mockito.anyString(), Mockito.any())).thenReturn(result);
+
+        Boolean serviceResult = service.updateRate(rateId, rateMap);
+
+        Assertions.assertEquals(result, serviceResult);
+    }
+
+    @Test
     public void checkIfExistRate_existName_throwsException() {
         Mockito.when(rateRepository.getRateByName(Mockito.anyString())).thenReturn(new Rate());
 

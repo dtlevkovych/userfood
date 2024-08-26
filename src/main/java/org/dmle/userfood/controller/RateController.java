@@ -50,4 +50,9 @@ public class RateController {
     public ResponseEntity<Boolean> updateRate(@PathVariable("id") String rateId, @RequestBody Map<String, Object> updateRate) {
         return ResponseEntity.successResponse(rateService.updateRate(rateId, updateRate));
     }
+
+    @DeleteMapping(value = "rate/{id}")
+    public ResponseEntity<Boolean> deleteRate(@PathVariable("id") String rateId) {
+        return ResponseEntity.successResponse(rateService.deleteRate(rateId));
+    }
 }

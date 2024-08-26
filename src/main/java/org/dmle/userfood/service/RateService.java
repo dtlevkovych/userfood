@@ -12,5 +12,6 @@ public interface RateService {
     Rate getRateById(String rateId);
     String addRate(Map<String, Object> newRate);
     Boolean updateRate(String rateId, Map<String, Object> updateRate);
+    Boolean deleteRate(String rateId);
     void checkIfExistRate(String name, Integer value);
 }

@@ -128,4 +128,26 @@ public class RateControllerTest {
         ResponseEntity<String> result = controller.addRate(Mockito.anyMap());
         Assertions.assertEquals(rateId, result.getData());
     }
+
+    @Test
+    public void updateRate_returnsResponseEntityInstance() {
+        ResponseEntity<Boolean> result = controller.updateRate(Mockito.anyString(), Mockito.anyMap());
+        Assertions.assertInstanceOf(ResponseEntity.class, result);
+    }
+
+    @Test
+    public void updateRate_returnsResponseEntityOKStatus() {
+        ResponseEntity<Boolean> result = controller.updateRate(Mockito.anyString(), Mockito.anyMap());
+        Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
+    }
+
+    @Test
+    public void updateRate_returnsResponseEntityWithTrue() {
+        Boolean status = true;
+
+        Mockito.when(rateService.updateRate(Mockito.anyString(), Mockito.anyMap())).thenReturn(status);
+
+        ResponseEntity<Boolean> result = controller.updateRate(Mockito.anyString(), Mockito.anyMap());
+        Assertions.assertEquals(status, result.getData());
+    }
 }

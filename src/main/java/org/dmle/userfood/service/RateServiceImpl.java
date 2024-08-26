@@ -70,6 +70,15 @@ public class RateServiceImpl implements RateService {
     }
 
     @Override
+    public Boolean deleteRate(String rateId) {
+        if (rateRepository.getRateById(rateId) == null) {
+            throw new IllegalArgumentException("Not Found");
+        }
+
+        return rateRepository.deleteRate(rateId);
+    }
+
+    @Override
     public void checkIfExistRate(String name, Integer value) {
         if (rateRepository.getRateByName(name) != null) {
             throw new IllegalArgumentException("Rate with such name exist.");

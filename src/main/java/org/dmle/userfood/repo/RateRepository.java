@@ -13,4 +13,5 @@ public interface RateRepository {
     Rate getRateByValue(Integer value);
     String addRate(Rate newRate);
     Boolean updateRate(String rateId, Rate updateRate);
+    Boolean deleteRate(String rateId);
 }

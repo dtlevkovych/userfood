@@ -2,7 +2,6 @@ package org.dmle.userfood.repo;
 
 import org.dmle.userfood.domain.Rate;
 import org.dmle.userfood.domain.RateRowMapper;
-import org.dmle.userfood.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -83,6 +82,17 @@ public class RateRepositoryImpl implements RateRepository {
 
         try {
             jdbcTemplate.update(sql, updateRate.getName(), updateRate.getValue(), updateRate.getColorHex(), rateId);
+            return true;
+        } catch (DataAccessException ignored) {}
+        return false;
+    }
+
+    @Override
+    public Boolean deleteRate(String rateId) {
+        String sql = "delete from rate where id=?";
+
+        try {
+            jdbcTemplate.update(sql, rateId);
             return true;
         } catch (DataAccessException ignored) {}
         return false;

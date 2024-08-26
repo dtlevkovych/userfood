@@ -2,7 +2,6 @@ package org.dmle.userfood.repo;
 
 import org.dmle.userfood.domain.Rate;
 import org.dmle.userfood.domain.RateRowMapper;
-import org.dmle.userfood.domain.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -136,5 +135,19 @@ public class RateRepositoryTest {
 
         Rate result = repository.getRateByValue(1);
         Assertions.assertEquals(rate, result);
+    }
+
+    @Test
+    public void updateRate_returnsBooleanInstance() {
+        Boolean result = repository.updateRate("", new Rate());
+        Assertions.assertInstanceOf(Boolean.class, result);
+    }
+
+    @Test
+    public void updateRate_returnsTrue() {
+        Mockito.when(jdbcTemplate.update(Mockito.anyString(), Mockito.anyString(), Mockito.anyInt(), Mockito.anyString())).thenReturn(1);
+
+        Boolean result = repository.updateRate("", new Rate());
+        Assertions.assertEquals(result, true);
     }
 }
