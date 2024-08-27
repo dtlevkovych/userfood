@@ -150,4 +150,18 @@ public class RateRepositoryTest {
         Boolean result = repository.updateRate("", new Rate());
         Assertions.assertEquals(result, true);
     }
+
+    @Test
+    public void deleteRate_returnsBooleanInstance() {
+        Boolean result = repository.deleteRate("");
+        Assertions.assertInstanceOf(Boolean.class, result);
+    }
+
+    @Test
+    public void deleteRate_returnsTrue() {
+        Mockito.when(jdbcTemplate.update(Mockito.anyString(), Mockito.anyString())).thenReturn(1);
+
+        Boolean result = repository.deleteRate("");
+        Assertions.assertEquals(result, true);
+    }
 }

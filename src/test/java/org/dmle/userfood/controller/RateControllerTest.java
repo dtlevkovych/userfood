@@ -150,4 +150,26 @@ public class RateControllerTest {
         ResponseEntity<Boolean> result = controller.updateRate(Mockito.anyString(), Mockito.anyMap());
         Assertions.assertEquals(status, result.getData());
     }
+
+    @Test
+    public void deleteRate_returnsResponseEntityInstance() {
+        ResponseEntity<Boolean> result = controller.deleteRate(Mockito.anyString());
+        Assertions.assertInstanceOf(ResponseEntity.class, result);
+    }
+
+    @Test
+    public void deleteRate_returnsResponseEntityOKStatus() {
+        ResponseEntity<Boolean> result = controller.deleteRate(Mockito.anyString());
+        Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
+    }
+
+    @Test
+    public void deleteRater_returnsResponseEntityWithTrue() {
+        Boolean status = true;
+
+        Mockito.when(rateService.deleteRate(Mockito.anyString())).thenReturn(status);
+
+        ResponseEntity<Boolean> result = controller.deleteRate(Mockito.anyString());
+        Assertions.assertEquals(status, result.getData());
+    }
 }

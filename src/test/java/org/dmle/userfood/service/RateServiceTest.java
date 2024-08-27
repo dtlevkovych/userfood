@@ -203,4 +203,30 @@ public class RateServiceTest {
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> service.checkIfExistRate("", 1));
     }
+
+    @Test
+    public void deleteRate_returnsBooleanInstance() {
+        Mockito.when(rateRepository.getRateById(Mockito.anyString())).thenReturn(new Rate());
+
+        Boolean result = service.deleteRate(Mockito.anyString());
+        Assertions.assertInstanceOf(Boolean.class, result);
+    }
+
+    @Test
+    public void deleteRate_nonExistRate_throwsException() {
+        Mockito.when(rateRepository.getRateById(Mockito.anyString())).thenReturn(null);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.deleteRate(Mockito.anyString()));
+    }
+
+    @Test
+    public void deleteRate_existRate_returnsTrue() {
+        Boolean status = true;
+
+        Mockito.when(rateRepository.getRateById(Mockito.anyString())).thenReturn(new Rate());
+        Mockito.when(rateRepository.deleteRate(Mockito.anyString())).thenReturn(status);
+
+        Boolean result = service.deleteRate(Mockito.anyString());
+        Assertions.assertEquals(result, status);
+    }
 }
