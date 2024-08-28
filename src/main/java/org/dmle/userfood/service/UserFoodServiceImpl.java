@@ -17,4 +17,9 @@ public class UserFoodServiceImpl implements UserFoodService{
     public List<UserFood> getUserFoods() {
         return userFoodRepository.getUserFoods();
     }
+
+    @Override
+    public List<UserFood> getUserFoodsByUserId(String userId) {
+        return userFoodRepository.getUserFoodsByUserId(userId);
+    }
 }

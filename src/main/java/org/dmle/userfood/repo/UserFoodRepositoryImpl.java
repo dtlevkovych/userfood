@@ -24,4 +24,13 @@ public class UserFoodRepositoryImpl implements UserFoodRepository{
         } catch (EmptyResultDataAccessException ignored) {}
         return Collections.emptyList();
     }
+
+    @Override
+    public List<UserFood> getUserFoodsByUserId(String userId) {
+        String sql = "select * from user_food where user_id=?";
+        try {
+            return jdbcTemplate.query(sql, new UserFoodRowMapper(), userId);
+        } catch (EmptyResultDataAccessException ignored) {}
+        return null;
+    }
 }

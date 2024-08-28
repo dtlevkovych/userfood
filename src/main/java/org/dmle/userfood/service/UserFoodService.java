@@ -7,4 +7,5 @@ import java.util.List;
 public interface UserFoodService {
 
     List<UserFood> getUserFoods();
+    List<UserFood> getUserFoodsByUserId(String userId);
 }

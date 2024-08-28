@@ -7,4 +7,5 @@ import java.util.List;
 public interface UserFoodRepository {
 
     List<UserFood> getUserFoods();
+    List<UserFood> getUserFoodsByUserId(String userId);
 }
