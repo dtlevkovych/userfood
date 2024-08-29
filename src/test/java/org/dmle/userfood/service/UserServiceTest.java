@@ -69,7 +69,7 @@ class UserServiceTest {
     }
 
     @Test
-    public void getUserById_returnsListInstance() {
+    public void getUserById_returnsUserInstance() {
         String userId = "";
 
         Mockito.when(userRepository.getUserById(userId)).thenReturn(new User());
@@ -79,7 +79,7 @@ class UserServiceTest {
     }
 
     @Test
-    public void getUserById_returnsListWithUsers() {
+    public void getUserById_returnsUser() {
         User user = new User();
 
         Mockito.when(userRepository.getUserById(Mockito.anyString())).thenReturn(user);

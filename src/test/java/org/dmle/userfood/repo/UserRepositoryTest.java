@@ -73,7 +73,7 @@ class UserRepositoryTest {
     }
 
     @Test
-    public void getUserById_returnsListWithUsers() {
+    public void getUserById_returnsUser() {
         User user = new User();
         String userId = "";
 

@@ -7,6 +7,7 @@ import org.dmle.userfood.service.UserFoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -25,5 +26,20 @@ public class UserFoodController {
     @GetMapping(value = "userfoods/user/{id}")
     public ResponseEntity<List<UserFood>> getUserFoodsByUserId(@PathVariable("id") String userId) {
         return ResponseEntity.successResponse(userFoodService.getUserFoodsByUserId(userId));
+    }
+
+    @GetMapping(value = "userfoods/user/{id}/pagination")
+    public ResponseEntity<List<UserFood>> getUserFoodsByUserIdPagination(@PathVariable("id") String userId, @RequestParam int limit, @RequestParam int page) {
+        if (limit == 0) {
+            limit = 10;
+        }
+
+        if (page == 0) {
+            page = 0;
+        }
+
+        Integer start = page * limit;
+
+        return ResponseEntity.successResponse(userFoodService.getUserFoodsByUserIdPagination(start, limit, userId));
     }
 }

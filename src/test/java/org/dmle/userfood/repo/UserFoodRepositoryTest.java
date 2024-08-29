@@ -42,4 +42,25 @@ public class UserFoodRepositoryTest {
 
         Assertions.assertEquals(userFoods.size(), result.size());
     }
+
+    @Test
+    public void getUserFoodsByUserId_returnsListInstance() {
+        List<UserFood> userFood = List.of(new UserFood(), new UserFood());
+
+        Mockito.when(jdbcTemplate.query(Mockito.anyString(), Mockito.any(UserFoodRowMapper.class), Mockito.any(Object[].class))).thenReturn(userFood);
+
+        List<UserFood> result = repository.getUserFoodsByUserId("");
+        Assertions.assertInstanceOf(List.class, result);
+    }
+
+    @Test
+    public void getUserFoodsByUserId_returnsUser() {
+        List<UserFood> userFood = List.of(new UserFood(), new UserFood());
+        String userId = "";
+
+        Mockito.when(jdbcTemplate.query(Mockito.anyString(), Mockito.any(UserFoodRowMapper.class), Mockito.any(Object[].class))).thenReturn(userFood);
+
+        List<UserFood> result = repository.getUserFoodsByUserId(userId);
+        Assertions.assertEquals(userFood, result);
+    }
 }

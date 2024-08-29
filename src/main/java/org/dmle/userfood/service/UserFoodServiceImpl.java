@@ -22,4 +22,9 @@ public class UserFoodServiceImpl implements UserFoodService{
     public List<UserFood> getUserFoodsByUserId(String userId) {
         return userFoodRepository.getUserFoodsByUserId(userId);
     }
+
+    @Override
+    public List<UserFood> getUserFoodsByUserIdPagination(Integer start, Integer limit, String userId) {
+        return userFoodRepository.getUserFoodsByUserIdPagination(start, limit, userId);
+    }
 }
