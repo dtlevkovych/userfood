@@ -75,4 +75,38 @@ public class UserFoodControllerTest {
         ResponseEntity<List<UserFood>> result = controller.getUserFoodsByUserId(userId);
         Assertions.assertEquals(userFood, result.getData());
     }
+
+    @Test
+    public void getUserFoodsByUserIdPagination_returnsResponseEntityInstance() {
+        Integer limit = 2;
+        Integer page = 1;
+        String userId = "122352";
+
+        ResponseEntity<List<UserFood>> result = controller.getUserFoodsByUserIdPagination(userId, limit, page);
+        Assertions.assertInstanceOf(ResponseEntity.class, result);
+    }
+
+    @Test
+    public void getUserFoodsByUserIdPagination_returnsResponseEntityOKStatus() {
+        Integer limit = 2;
+        Integer page = 1;
+        String userId = "122352";
+
+        ResponseEntity<List<UserFood>> result = controller.getUserFoodsByUserIdPagination(userId, limit, page);
+        Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
+    }
+
+    @Test
+    public void getUserFoodsByUserIdPagination_returnsResponseEntityWithUserFoods() {
+        List<UserFood> userFoods = List.of(new UserFood(), new UserFood());
+        Integer start = 2;
+        Integer limit = 2;
+        Integer page = 1;
+        String userId = "122352";
+
+        Mockito.when(userFoodService.getUserFoodsByUserIdPagination(start, limit, userId)).thenReturn(userFoods);
+
+        ResponseEntity<List<UserFood>> result = controller.getUserFoodsByUserIdPagination(userId, limit, page);
+        Assertions.assertEquals(userFoods.size(), result.getData().size());
+    }
 }

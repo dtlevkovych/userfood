@@ -42,4 +42,9 @@ public class UserFoodController {
 
         return ResponseEntity.successResponse(userFoodService.getUserFoodsByUserIdPagination(start, limit, userId));
     }
+
+    @GetMapping(value = "userfoods/user/{userId}/food/{foodId}")
+    public ResponseEntity<UserFood> getUserFoodById(@PathVariable("userId") String userId, @PathVariable("foodId") String foodId) {
+        return ResponseEntity.successResponse(userFoodService.getUserFoodById(userId, foodId));
+    }
 }

@@ -1,9 +1,7 @@
 package org.dmle.userfood.repo;
 
-import org.dmle.userfood.domain.User;
 import org.dmle.userfood.domain.UserFood;
 import org.dmle.userfood.domain.UserFoodRowMapper;
-import org.dmle.userfood.domain.UserRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -49,5 +47,14 @@ public class UserFoodRepositoryImpl implements UserFoodRepository{
             return jdbcTemplate.query(sql , new UserFoodRowMapper(), userId, start, limit);
         } catch (EmptyResultDataAccessException ignored) {}
         return Collections.emptyList();
+    }
+
+    @Override
+    public UserFood getUserFoodById(String userId, String foodId) {
+        String sql = "select * from user_food where user_id=? and food_id=?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new UserFoodRowMapper(), userId, foodId);
+        } catch (EmptyResultDataAccessException ignored) {}
+        return null;
     }
 }
