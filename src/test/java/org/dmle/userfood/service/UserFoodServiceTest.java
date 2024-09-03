@@ -88,4 +88,27 @@ public class UserFoodServiceTest {
         List<UserFood> result = service.getUserFoodsByUserIdPagination(start, limit, userId);
         Assertions.assertEquals(userFoods.size(), result.size());
     }
+
+    @Test
+    public void getUserFoodById_returnsUserFoodInstance() {
+        List<UserFood> userFood = List.of(new UserFood(), new UserFood());
+        String userId = "";
+
+        Mockito.when(userFoodRepository.getUserFoodsByUserId(userId)).thenReturn(userFood);
+
+        List<UserFood> result = service.getUserFoodsByUserId(userId);
+        Assertions.assertInstanceOf(List.class, result);
+    }
+
+    @Test
+    public void getUserFoodById_returnsListWithUserFood() {
+        UserFood userFood = new UserFood();
+        String userId = "874686745";
+        String foodId = "874686745";
+
+        Mockito.when(userFoodRepository.getUserFoodById(userId, foodId)).thenReturn(userFood);
+
+        UserFood result = service.getUserFoodById(userId, foodId);
+        Assertions.assertEquals(userFood, result);
+    }
 }

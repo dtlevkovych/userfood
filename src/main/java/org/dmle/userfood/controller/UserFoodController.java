@@ -47,4 +47,9 @@ public class UserFoodController {
     public ResponseEntity<UserFood> getUserFoodById(@PathVariable("userId") String userId, @PathVariable("foodId") String foodId) {
         return ResponseEntity.successResponse(userFoodService.getUserFoodById(userId, foodId));
     }
+
+    @GetMapping(value = "userfoods/eatinghealth/user/{id}")
+    public ResponseEntity<List<UserFood>> getEatingHealthReport(@PathVariable("id") String userId) {
+        return ResponseEntity.successResponse(userFoodService.getEatingHealthReport(userId));
+    }
 }

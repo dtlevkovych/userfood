@@ -32,4 +32,9 @@ public class UserFoodServiceImpl implements UserFoodService{
     public UserFood getUserFoodById(String userId, String foodId) {
         return userFoodRepository.getUserFoodById(userId, foodId);
     }
+
+    @Override
+    public List<UserFood> getEatingHealthReport(String userId) {
+        return userFoodRepository.getEatingHealthReport(userId);
+    }
 }

@@ -57,4 +57,21 @@ public class UserFoodRepositoryImpl implements UserFoodRepository{
         } catch (EmptyResultDataAccessException ignored) {}
         return null;
     }
+
+    @Override
+    public List<UserFood> getEatingHealthReport(String userId) {
+        String sql = """
+            SELECT r.id, r.name, r.value, r.color_hex, r.created_at, count(*) as count
+            FROM user_food AS uf
+            INNER JOIN food AS f ON uf.food_id=f.id
+            INNER JOIN rate AS r ON f.rate_id = r.id
+            WHERE uf.user_id=?
+            GROUP BY r.value
+            ORDER BY r.value
+            """;
+        try {
+            return jdbcTemplate.query(sql , new UserFoodRowMapper(), userId);
+        } catch (EmptyResultDataAccessException ignored) {}
+        return Collections.emptyList();
+    }
 }
