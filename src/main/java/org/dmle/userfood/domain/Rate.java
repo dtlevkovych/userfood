@@ -8,7 +8,7 @@ public class Rate {
     private Long createdAt;
 
     public Rate() {}
-    
+
     public Rate(String id, String name, Integer value, String colorHex, Long createdAt) {
         this.id = id;
         this.name = name;
