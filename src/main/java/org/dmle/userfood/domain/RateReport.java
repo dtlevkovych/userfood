@@ -16,30 +16,15 @@ public class RateReport extends Rate {
         this.count = count;
     }
 
-    public String getId() {
-        return super.getId();
-    }
-
-    public String getName() {
-        return super.getName();
-    }
-
-    public Integer getValue() {
-        return super.getValue();
-    }
-
-    public String colorHex() {
-        return super.getColorHex();
-    }
-
-    public Long createdAt() {
-        return super.getCreatedAt();
-    }
-
     @Override
     public String toString() {
         return "RateReport{" +
-                "count=" + count +
-                "} " + super.toString();
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", value=" + value +
+                ", colorHex='" + colorHex + '\'' +
+                ", createdAt=" + createdAt +
+                ", count=" + count +
+                '}';
     }
 }

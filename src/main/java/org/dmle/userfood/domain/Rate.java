@@ -7,6 +7,16 @@ public class Rate {
     private String colorHex;
     private Long createdAt;
 
+    public Rate() {}
+    
+    public Rate(String id, String name, Integer value, String colorHex, Long createdAt) {
+        this.id = id;
+        this.name = name;
+        this.value = value;
+        this.colorHex = colorHex;
+        this.createdAt = createdAt;
+    }
+
     public String getId() {
         return id;
     }
