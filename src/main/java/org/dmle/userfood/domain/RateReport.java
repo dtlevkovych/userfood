@@ -3,6 +3,8 @@ package org.dmle.userfood.domain;
 public class RateReport extends Rate {
     private Integer count;
 
+    public RateReport() {}
+
     public RateReport(String id, String name, Integer value, String colorHex, Long createdAt, Integer count){
         super(id, name, value, colorHex, createdAt);
         this.count = count;
@@ -19,12 +21,12 @@ public class RateReport extends Rate {
     @Override
     public String toString() {
         return "RateReport{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", value=" + value +
-                ", colorHex='" + colorHex + '\'' +
-                ", createdAt=" + createdAt +
-                ", count=" + count +
+                "id='" + getId() + '\'' +
+                ", name='" + getName() + '\'' +
+                ", value=" + getValue() +
+                ", colorHex='" + getColorHex() + '\'' +
+                ", createdAt=" + getCreatedAt() +
+                ", count=" + getCount() +
                 '}';
     }
 }
