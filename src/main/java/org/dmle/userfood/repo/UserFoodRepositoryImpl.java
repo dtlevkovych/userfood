@@ -1,5 +1,7 @@
 package org.dmle.userfood.repo;
 
+import org.dmle.userfood.domain.RateReport;
+import org.dmle.userfood.domain.RateReportRowMapper;
 import org.dmle.userfood.domain.UserFood;
 import org.dmle.userfood.domain.UserFoodRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +61,7 @@ public class UserFoodRepositoryImpl implements UserFoodRepository{
     }
 
     @Override
-    public List<UserFood> getEatingHealthReport(String userId) {
+    public List<RateReport> getEatingHealthReport(String userId) {
         String sql = """
             SELECT r.id, r.name, r.value, r.color_hex, r.created_at, count(*) as count
             FROM user_food AS uf
@@ -70,7 +72,7 @@ public class UserFoodRepositoryImpl implements UserFoodRepository{
             ORDER BY r.value
             """;
         try {
-            return jdbcTemplate.query(sql , new UserFoodRowMapper(), userId);
+            return jdbcTemplate.query(sql , new RateReportRowMapper(), userId);
         } catch (EmptyResultDataAccessException ignored) {}
         return Collections.emptyList();
     }

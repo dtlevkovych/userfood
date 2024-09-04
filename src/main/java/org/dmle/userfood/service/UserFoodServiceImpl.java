@@ -1,5 +1,6 @@
 package org.dmle.userfood.service;
 
+import org.dmle.userfood.domain.RateReport;
 import org.dmle.userfood.domain.UserFood;
 import org.dmle.userfood.repo.UserFoodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class UserFoodServiceImpl implements UserFoodService{
     }
 
     @Override
-    public List<UserFood> getEatingHealthReport(String userId) {
+    public List<RateReport> getEatingHealthReport(String userId) {
         return userFoodRepository.getEatingHealthReport(userId);
     }
 }

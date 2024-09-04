@@ -1,6 +1,7 @@
 package org.dmle.userfood.controller;
 
 import org.dmle.userfood.config.ApiPrefixController;
+import org.dmle.userfood.domain.RateReport;
 import org.dmle.userfood.domain.ResponseEntity;
 import org.dmle.userfood.domain.UserFood;
 import org.dmle.userfood.service.UserFoodService;
@@ -49,7 +50,7 @@ public class UserFoodController {
     }
 
     @GetMapping(value = "userfoods/eatinghealth/user/{id}")
-    public ResponseEntity<List<UserFood>> getEatingHealthReport(@PathVariable("id") String userId) {
+    public ResponseEntity<List<RateReport>> getEatingHealthReport(@PathVariable("id") String userId) {
         return ResponseEntity.successResponse(userFoodService.getEatingHealthReport(userId));
     }
 }
