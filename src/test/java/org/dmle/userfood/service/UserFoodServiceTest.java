@@ -1,5 +1,6 @@
 package org.dmle.userfood.service;
 
+import org.dmle.userfood.domain.RateReport;
 import org.dmle.userfood.domain.UserFood;
 import org.dmle.userfood.repo.UserFoodRepository;
 import org.junit.jupiter.api.Assertions;
@@ -110,5 +111,24 @@ public class UserFoodServiceTest {
 
         UserFood result = service.getUserFoodById(userId, foodId);
         Assertions.assertEquals(userFood, result);
+    }
+
+    @Test
+    public void getEatingHealthReport_returnsListInstance() {
+        String userId = "209573";
+
+        List<RateReport> result = service.getEatingHealthReport(userId);
+        Assertions.assertInstanceOf(List.class, result);
+    }
+
+    @Test
+    public void getUsers_returnsListWithRateReports() {
+        List<RateReport> rateReports = List.of(new RateReport(), new RateReport());
+        String userId = "209573";
+
+        Mockito.when(userFoodRepository.getEatingHealthReport(Mockito.anyString())).thenReturn(rateReports);
+
+        List<RateReport> result = service.getEatingHealthReport(userId);
+        Assertions.assertEquals(rateReports.size(), result.size());
     }
 }

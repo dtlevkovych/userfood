@@ -1,7 +1,6 @@
 package org.dmle.userfood.repo;
 
-import org.dmle.userfood.domain.UserFood;
-import org.dmle.userfood.domain.UserFoodRowMapper;
+import org.dmle.userfood.domain.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -109,5 +108,25 @@ public class UserFoodRepositoryTest {
 
         UserFood result = repository.getUserFoodById(userId, foodId);
         Assertions.assertEquals(userFood, result);
+    }
+
+    @Test
+    public void getEatingHealthReport_returnsListInstance() {
+        String userId = "675327";
+
+        List<RateReport> result = repository.getEatingHealthReport(userId);
+        Assertions.assertInstanceOf(List.class, result);
+    }
+
+    @Test
+    public void getEatingHealthReport_returnsListWithRateReports() {
+        List<RateReport> rateReports = List.of(new RateReport(), new RateReport());
+        String userId = "675327";
+
+        Mockito.when(jdbcTemplate.query(Mockito.anyString(), Mockito.any(RateReportRowMapper.class), Mockito.anyString())).thenReturn(rateReports);
+
+        List<RateReport> result = repository.getEatingHealthReport(userId);
+
+        Assertions.assertEquals(rateReports.size(), result.size());
     }
 }

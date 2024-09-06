@@ -6,12 +6,10 @@ import org.dmle.userfood.domain.ResponseEntity;
 import org.dmle.userfood.domain.UserFood;
 import org.dmle.userfood.service.UserFoodService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @ApiPrefixController
@@ -52,5 +50,10 @@ public class UserFoodController {
     @GetMapping(value = "userfoods/eatinghealth/user/{id}")
     public ResponseEntity<List<RateReport>> getEatingHealthReport(@PathVariable("id") String userId) {
         return ResponseEntity.successResponse(userFoodService.getEatingHealthReport(userId));
+    }
+
+    @PostMapping(value = "userfoods")
+    public ResponseEntity<String> addUserFood(@RequestBody Map<String, Object> newUserFood) {
+        return ResponseEntity.successResponse(userFoodService.addUserFood(newUserFood));
     }
 }

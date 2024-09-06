@@ -1,5 +1,6 @@
 package org.dmle.userfood.controller;
 
+import org.dmle.userfood.domain.RateReport;
 import org.dmle.userfood.domain.ResponseEntity;
 import org.dmle.userfood.domain.UserFood;
 import org.dmle.userfood.service.UserFoodService;
@@ -138,5 +139,32 @@ public class UserFoodControllerTest {
 
         ResponseEntity<UserFood> result = controller.getUserFoodById(userId, foodId);
         Assertions.assertEquals(userFood, result.getData());
+    }
+
+    @Test
+    public void getEatingHealthReport_returnsResponseEntityInstance() {
+        String userId = "9742247";
+
+        ResponseEntity<List<RateReport>> result = controller.getEatingHealthReport(userId);
+        Assertions.assertInstanceOf(ResponseEntity.class, result);
+    }
+
+    @Test
+    public void getEatingHealthReport_returnsResponseEntityOKStatus() {
+        String userId = "9742247";
+
+        ResponseEntity<List<RateReport>> result = controller.getEatingHealthReport(userId);
+        Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
+    }
+
+    @Test
+    public void getEatingHealthReport_returnsResponseEntityWithRateReport() {
+        List<RateReport> rateReports = List.of(new RateReport(), new RateReport());
+        String userId = "9742247";
+
+        Mockito.when(userFoodService.getEatingHealthReport(Mockito.anyString())).thenReturn(rateReports);
+
+        ResponseEntity<List<RateReport>> result = controller.getEatingHealthReport(userId);
+        Assertions.assertEquals(rateReports.size(), result.getData().size());
     }
 }

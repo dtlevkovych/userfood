@@ -1,16 +1,15 @@
 package org.dmle.userfood.repo;
 
-import org.dmle.userfood.domain.RateReport;
-import org.dmle.userfood.domain.RateReportRowMapper;
-import org.dmle.userfood.domain.UserFood;
-import org.dmle.userfood.domain.UserFoodRowMapper;
+import org.dmle.userfood.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class UserFoodRepositoryImpl implements UserFoodRepository{
@@ -75,5 +74,18 @@ public class UserFoodRepositoryImpl implements UserFoodRepository{
             return jdbcTemplate.query(sql , new RateReportRowMapper(), userId);
         } catch (EmptyResultDataAccessException ignored) {}
         return Collections.emptyList();
+    }
+
+    @Override
+    public String addUserFood(UserFood newUserFood) {
+        String sql = "insert into user_food (id, user_id, food_id) values (?, ?, ?)";
+
+        String id = String.valueOf(UUID.randomUUID());
+
+        try {
+            jdbcTemplate.update(sql, id, newUserFood.getUserId(), newUserFood.getFoodId());
+            return id;
+        } catch (DataAccessException ignored) {}
+        return null;
     }
 }

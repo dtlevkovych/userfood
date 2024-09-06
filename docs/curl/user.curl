@@ -5,7 +5,7 @@ get_users_pagination:
 curl -i -X GET "http://127.0.0.1:8080/api/users/pagination?limit=2&page=1"
 
 get_user:
-curl -i -X GET "http://127.0.0.1:8080/api/user/950f4862-bc4b-483b-a763-5c39765d2a71"
+curl -i -X GET "http://127.0.0.1:8080/api/user/9675eedf-d6e7-446b-939e-4471a0f77f48"
 
 add_user:
 curl -i -X POST "http://127.0.0.1:8080/api/user" \

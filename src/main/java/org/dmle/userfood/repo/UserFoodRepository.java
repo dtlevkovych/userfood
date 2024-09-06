@@ -12,4 +12,5 @@ public interface UserFoodRepository {
     List<UserFood> getUserFoodsByUserIdPagination(Integer start, Integer limit, String userId);
     UserFood getUserFoodById(String userId, String foodId);
     List<RateReport> getEatingHealthReport(String userId);
+    String addUserFood(UserFood newUserFood);
 }
