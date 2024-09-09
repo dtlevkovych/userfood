@@ -112,32 +112,32 @@ public class UserFoodControllerTest {
     }
 
     @Test
-    public void getUserFoodById_returnsResponseEntityInstance() {
+    public void getUserFoodByUserAndFoodId_returnsResponseEntityInstance() {
         String userId = "536382";
         String foodId = "92835";
 
-        ResponseEntity<UserFood> result = controller.getUserFoodById(userId, foodId);
+        ResponseEntity<UserFood> result = controller.getUserFoodByUserAndFoodId(userId, foodId);
         Assertions.assertInstanceOf(ResponseEntity.class, result);
     }
 
     @Test
-    public void getUserFoodById_returnsResponseEntityOKStatus() {
+    public void getUserFoodByUserAndFoodId_returnsResponseEntityOKStatus() {
         String userId = "536382";
         String foodId = "92835";
 
-        ResponseEntity<UserFood> result = controller.getUserFoodById(userId, foodId);
+        ResponseEntity<UserFood> result = controller.getUserFoodByUserAndFoodId(userId, foodId);
         Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
     }
 
     @Test
-    public void getUserFoodById_returnsResponseEntityWithUserFood() {
+    public void getUserFoodByUserAndFoodId_returnsResponseEntityWithUserFood() {
         UserFood userFood = new UserFood();
         String userId = "536382";
         String foodId = "92835";
 
-        Mockito.when(userFoodService.getUserFoodById(userId, foodId)).thenReturn(userFood);
+        Mockito.when(userFoodService.getUserFoodByUserAndFoodId(userId, foodId)).thenReturn(userFood);
 
-        ResponseEntity<UserFood> result = controller.getUserFoodById(userId, foodId);
+        ResponseEntity<UserFood> result = controller.getUserFoodByUserAndFoodId(userId, foodId);
         Assertions.assertEquals(userFood, result.getData());
     }
 
@@ -166,5 +166,27 @@ public class UserFoodControllerTest {
 
         ResponseEntity<List<RateReport>> result = controller.getEatingHealthReport(userId);
         Assertions.assertEquals(rateReports.size(), result.getData().size());
+    }
+
+    @Test
+    public void addUserFood_returnsResponseEntityInstance() {
+        ResponseEntity<String> result = controller.addUserFood(Mockito.anyMap());
+        Assertions.assertInstanceOf(ResponseEntity.class, result);
+    }
+
+    @Test
+    public void addUserFood_returnsResponseEntityOKStatus() {
+        ResponseEntity<String> result = controller.addUserFood(Mockito.anyMap());
+        Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
+    }
+
+    @Test
+    public void addUserFood_returnsResponseEntityWithId() {
+        String userFoodId = "12054-14525-9535";
+
+        Mockito.when(userFoodService.addUserFood(Mockito.anyMap())).thenReturn(userFoodId);
+
+        ResponseEntity<String> result = controller.addUserFood(Mockito.anyMap());
+        Assertions.assertEquals(userFoodId, result.getData());
     }
 }

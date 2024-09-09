@@ -51,7 +51,7 @@ public class UserFoodRepositoryImpl implements UserFoodRepository{
     }
 
     @Override
-    public UserFood getUserFoodById(String userId, String foodId) {
+    public UserFood getUserFoodByUserAndFoodId(String userId, String foodId) {
         String sql = "select * from user_food where user_id=? and food_id=?";
         try {
             return jdbcTemplate.queryForObject(sql, new UserFoodRowMapper(), userId, foodId);
@@ -77,6 +77,15 @@ public class UserFoodRepositoryImpl implements UserFoodRepository{
     }
 
     @Override
+    public UserFood getUserFoodById(String userFoodId) {
+        String sql = "select id, user_id, food_id from user_food where id=? limit 0,1";
+        try {
+            return jdbcTemplate.queryForObject(sql, new UserFoodRowMapper(), userFoodId);
+        } catch (EmptyResultDataAccessException ignored) {}
+        return null;
+    }
+
+    @Override
     public String addUserFood(UserFood newUserFood) {
         String sql = "insert into user_food (id, user_id, food_id) values (?, ?, ?)";
 
@@ -87,5 +96,16 @@ public class UserFoodRepositoryImpl implements UserFoodRepository{
             return id;
         } catch (DataAccessException ignored) {}
         return null;
+    }
+
+    @Override
+    public Boolean deleteUserFood(String userFoodId) {
+        String sql = "delete from user_food where id=?";
+
+        try {
+            jdbcTemplate.update(sql, userFoodId);
+            return true;
+        } catch (DataAccessException ignored) {}
+        return false;
     }
 }

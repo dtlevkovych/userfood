@@ -87,26 +87,26 @@ public class UserFoodRepositoryTest {
     }
 
     @Test
-    public void getUserFoodById_returnsUserFoodInstance() {
+    public void getUserFoodByUserAndFoodId_returnsUserFoodInstance() {
         UserFood userFood = new UserFood();
         String userId = "87634534";
         String foodId = "80976343";
 
         Mockito.when(jdbcTemplate.queryForObject(Mockito.anyString(), Mockito.any(UserFoodRowMapper.class), Mockito.any(Object[].class))).thenReturn(userFood);
 
-        UserFood result = repository.getUserFoodById(userId, foodId);
+        UserFood result = repository.getUserFoodByUserAndFoodId(userId, foodId);
         Assertions.assertInstanceOf(UserFood.class, result);
     }
 
     @Test
-    public void getUserFoodById_returnsUserFood() {
+    public void getUserFoodByUserAndFoodId_returnsUserFood() {
         UserFood userFood = new UserFood();
         String userId = "87634534";
         String foodId = "80976343";
 
         Mockito.when(jdbcTemplate.queryForObject(Mockito.anyString(), Mockito.any(UserFoodRowMapper.class), Mockito.any(Object[].class))).thenReturn(userFood);
 
-        UserFood result = repository.getUserFoodById(userId, foodId);
+        UserFood result = repository.getUserFoodByUserAndFoodId(userId, foodId);
         Assertions.assertEquals(userFood, result);
     }
 
@@ -128,5 +128,23 @@ public class UserFoodRepositoryTest {
         List<RateReport> result = repository.getEatingHealthReport(userId);
 
         Assertions.assertEquals(rateReports.size(), result.size());
+    }
+
+    @Test
+    public void addUserFood_returnsStringInstance() {
+        UserFood newUserFood = new UserFood();
+
+        String result = repository.addUserFood(newUserFood);
+        Assertions.assertInstanceOf(String.class, result);
+    }
+
+    @Test
+    public void addUserFood_returnsUserId() {
+        UserFood newUserFood = new UserFood();
+
+        Mockito.when(jdbcTemplate.update(Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(1);
+
+        String result = repository.addUserFood(newUserFood);
+        Assertions.assertNotNull(result);
     }
 }

@@ -43,8 +43,8 @@ public class UserFoodController {
     }
 
     @GetMapping(value = "userfoods/user/{userId}/food/{foodId}")
-    public ResponseEntity<UserFood> getUserFoodById(@PathVariable("userId") String userId, @PathVariable("foodId") String foodId) {
-        return ResponseEntity.successResponse(userFoodService.getUserFoodById(userId, foodId));
+    public ResponseEntity<UserFood> getUserFoodByUserAndFoodId(@PathVariable("userId") String userId, @PathVariable("foodId") String foodId) {
+        return ResponseEntity.successResponse(userFoodService.getUserFoodByUserAndFoodId(userId, foodId));
     }
 
     @GetMapping(value = "userfoods/eatinghealth/user/{id}")
@@ -55,5 +55,10 @@ public class UserFoodController {
     @PostMapping(value = "userfoods")
     public ResponseEntity<String> addUserFood(@RequestBody Map<String, Object> newUserFood) {
         return ResponseEntity.successResponse(userFoodService.addUserFood(newUserFood));
+    }
+
+    @DeleteMapping(value = "userfoods/{id}")
+    public ResponseEntity<Boolean> deleteUserFood(@PathVariable("id") String userFoodId) {
+        return ResponseEntity.successResponse(userFoodService.deleteUserFood(userFoodId));
     }
 }

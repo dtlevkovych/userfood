@@ -44,8 +44,8 @@ public class UserFoodServiceImpl implements UserFoodService{
     }
 
     @Override
-    public UserFood getUserFoodById(String userId, String foodId) {
-        return userFoodRepository.getUserFoodById(userId, foodId);
+    public UserFood getUserFoodByUserAndFoodId(String userId, String foodId) {
+        return userFoodRepository.getUserFoodByUserAndFoodId(userId, foodId);
     }
 
     @Override
@@ -79,10 +79,19 @@ public class UserFoodServiceImpl implements UserFoodService{
             throw new IllegalArgumentException("Wrong food id");
         }
 
-        if (userFoodRepository.getUserFoodById(userFood.getUserId(), userFood.getFoodId()) != null) {
+        if (userFoodRepository.getUserFoodByUserAndFoodId(userFood.getUserId(), userFood.getFoodId()) != null) {
             throw new IllegalArgumentException("Food already exist for the user");
         }
 
         return userFood;
+    }
+
+    @Override
+    public Boolean deleteUserFood(String userFoodId) {
+        if (userFoodRepository.getUserFoodById(userFoodId) == null) {
+            throw new IllegalArgumentException("Not Found");
+        }
+
+        return userFoodRepository.deleteUserFood(userFoodId);
     }
 }

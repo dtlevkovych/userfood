@@ -10,7 +10,9 @@ public interface UserFoodRepository {
     List<UserFood> getUserFoods();
     List<UserFood> getUserFoodsByUserId(String userId);
     List<UserFood> getUserFoodsByUserIdPagination(Integer start, Integer limit, String userId);
-    UserFood getUserFoodById(String userId, String foodId);
+    UserFood getUserFoodByUserAndFoodId(String userId, String foodId);
     List<RateReport> getEatingHealthReport(String userId);
+    UserFood getUserFoodById(String userFoodId);
     String addUserFood(UserFood newUserFood);
+    Boolean deleteUserFood(String userFoodId);
 }

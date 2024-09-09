@@ -91,25 +91,26 @@ public class UserFoodServiceTest {
     }
 
     @Test
-    public void getUserFoodById_returnsUserFoodInstance() {
-        List<UserFood> userFood = List.of(new UserFood(), new UserFood());
-        String userId = "";
-
-        Mockito.when(userFoodRepository.getUserFoodsByUserId(userId)).thenReturn(userFood);
-
-        List<UserFood> result = service.getUserFoodsByUserId(userId);
-        Assertions.assertInstanceOf(List.class, result);
-    }
-
-    @Test
-    public void getUserFoodById_returnsListWithUserFood() {
+    public void getUserFoodByUserAndFoodId_returnsUserFoodInstance() {
         UserFood userFood = new UserFood();
         String userId = "874686745";
         String foodId = "874686745";
 
-        Mockito.when(userFoodRepository.getUserFoodById(userId, foodId)).thenReturn(userFood);
+        Mockito.when(userFoodRepository.getUserFoodByUserAndFoodId(userId, foodId)).thenReturn(userFood);
 
-        UserFood result = service.getUserFoodById(userId, foodId);
+        UserFood result = service.getUserFoodByUserAndFoodId(userId, foodId);
+        Assertions.assertInstanceOf(UserFood.class, result);
+    }
+
+    @Test
+    public void getUserFoodByUserAndFoodId_returnsListWithUserFood() {
+        UserFood userFood = new UserFood();
+        String userId = "874686745";
+        String foodId = "874686745";
+
+        Mockito.when(userFoodRepository.getUserFoodByUserAndFoodId(userId, foodId)).thenReturn(userFood);
+
+        UserFood result = service.getUserFoodByUserAndFoodId(userId, foodId);
         Assertions.assertEquals(userFood, result);
     }
 
