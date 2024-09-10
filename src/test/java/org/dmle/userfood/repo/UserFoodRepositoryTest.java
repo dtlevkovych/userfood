@@ -131,6 +131,28 @@ public class UserFoodRepositoryTest {
     }
 
     @Test
+    public void getUserFoodById_returnsUserFoodInstance() {
+        UserFood userFood = new UserFood();
+        String userFoodId = "363677";
+
+        Mockito.when(jdbcTemplate.queryForObject(Mockito.anyString(), Mockito.any(UserFoodRowMapper.class), Mockito.any(Object[].class))).thenReturn(userFood);
+
+        UserFood result = repository.getUserFoodById(userFoodId);
+        Assertions.assertInstanceOf(UserFood.class, result);
+    }
+
+    @Test
+    public void getUserFoodById_returnsUserFood() {
+        UserFood userFood = new UserFood();
+        String userFoodId = "363677";
+
+        Mockito.when(jdbcTemplate.queryForObject(Mockito.anyString(), Mockito.any(UserFoodRowMapper.class), Mockito.any(Object[].class))).thenReturn(userFood);
+
+        UserFood result = repository.getUserFoodById(userFoodId);
+        Assertions.assertEquals(userFood, result);
+    }
+
+    @Test
     public void addUserFood_returnsStringInstance() {
         UserFood newUserFood = new UserFood();
 
@@ -146,5 +168,23 @@ public class UserFoodRepositoryTest {
 
         String result = repository.addUserFood(newUserFood);
         Assertions.assertNotNull(result);
+    }
+
+    @Test
+    public void deleteUserFood_returnsBooleanInstance() {
+        String userFoodId = "91731313";
+
+        Boolean result = repository.deleteUserFood(userFoodId);
+        Assertions.assertInstanceOf(Boolean.class, result);
+    }
+
+    @Test
+    public void deleteUserFood_returnsTrue() {
+        String userFoodId = "91731313";
+
+        Mockito.when(jdbcTemplate.update(Mockito.anyString(), Mockito.anyString())).thenReturn(1);
+
+        Boolean result = repository.deleteUserFood(userFoodId);
+        Assertions.assertEquals(result, true);
     }
 }

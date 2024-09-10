@@ -189,4 +189,26 @@ public class UserFoodControllerTest {
         ResponseEntity<String> result = controller.addUserFood(Mockito.anyMap());
         Assertions.assertEquals(userFoodId, result.getData());
     }
+
+    @Test
+    public void deleteUserFood_returnsResponseEntityInstance() {
+        ResponseEntity<Boolean> result = controller.deleteUserFood(Mockito.anyString());
+        Assertions.assertInstanceOf(ResponseEntity.class, result);
+    }
+
+    @Test
+    public void deleteUserFood_returnsResponseEntityOKStatus() {
+        ResponseEntity<Boolean> result = controller.deleteUserFood(Mockito.anyString());
+        Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
+    }
+
+    @Test
+    public void deleteUserFood_returnsResponseEntityWithTrue() {
+        Boolean status = true;
+
+        Mockito.when(userFoodService.deleteUserFood(Mockito.anyString())).thenReturn(status);
+
+        ResponseEntity<Boolean> result = controller.deleteUserFood(Mockito.anyString());
+        Assertions.assertEquals(status, result.getData());
+    }
 }

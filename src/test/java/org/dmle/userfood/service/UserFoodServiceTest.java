@@ -132,4 +132,30 @@ public class UserFoodServiceTest {
         List<RateReport> result = service.getEatingHealthReport(userId);
         Assertions.assertEquals(rateReports.size(), result.size());
     }
+
+    @Test
+    public void deleteUserFood_returnsBooleanInstance() {
+        Mockito.when(userFoodRepository.getUserFoodById(Mockito.anyString())).thenReturn(new UserFood());
+
+        Boolean result = service.deleteUserFood(Mockito.anyString());
+        Assertions.assertInstanceOf(Boolean.class, result);
+    }
+
+    @Test
+    public void deleteUserFood_nonExistUser_throwsException() {
+        Mockito.when(userFoodRepository.getUserFoodById(Mockito.anyString())).thenReturn(null);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.deleteUserFood(Mockito.anyString()));
+    }
+
+    @Test
+    public void deleteUserFood_existUser_returnsTrue() {
+        Boolean status = true;
+
+        Mockito.when(userFoodRepository.getUserFoodById(Mockito.anyString())).thenReturn(new UserFood());
+        Mockito.when(userFoodRepository.deleteUserFood(Mockito.anyString())).thenReturn(status);
+
+        Boolean result = service.deleteUserFood(Mockito.anyString());
+        Assertions.assertEquals(result, status);
+    }
 }
