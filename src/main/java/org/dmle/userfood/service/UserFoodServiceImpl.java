@@ -87,6 +87,15 @@ public class UserFoodServiceImpl implements UserFoodService{
     }
 
     @Override
+    public Boolean deleteUserFoodByUserId(String userId) {
+        if (userFoodRepository.deleteUserFoodByUserId(userId) == null) {
+            throw new IllegalArgumentException("Not Found");
+        }
+
+        return userFoodRepository.deleteUserFoodByUserId(userId);
+    }
+
+    @Override
     public Boolean deleteUserFood(String userFoodId) {
         if (userFoodRepository.getUserFoodById(userFoodId) == null) {
             throw new IllegalArgumentException("Not Found");

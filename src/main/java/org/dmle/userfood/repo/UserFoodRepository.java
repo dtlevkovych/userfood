@@ -14,5 +14,6 @@ public interface UserFoodRepository {
     List<RateReport> getEatingHealthReport(String userId);
     UserFood getUserFoodById(String userFoodId);
     String addUserFood(UserFood newUserFood);
+    Boolean deleteUserFoodByUserId(String userId);
     Boolean deleteUserFood(String userFoodId);
 }

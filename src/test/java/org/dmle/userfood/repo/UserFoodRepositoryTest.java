@@ -171,6 +171,24 @@ public class UserFoodRepositoryTest {
     }
 
     @Test
+    public void deleteUserFoodByUserId_returnsBooleanInstance() {
+        String userId = "4926594786";
+
+        Boolean result = repository.deleteUserFoodByUserId(userId);
+        Assertions.assertInstanceOf(Boolean.class, result);
+    }
+
+    @Test
+    public void deleteUserFoodByUserId_returnsTrue() {
+        String userId = "4926594786";
+
+        Mockito.when(jdbcTemplate.update(Mockito.anyString(), Mockito.anyString())).thenReturn(1);
+
+        Boolean result = repository.deleteUserFood(userId);
+        Assertions.assertEquals(result, true);
+    }
+
+    @Test
     public void deleteUserFood_returnsBooleanInstance() {
         String userFoodId = "91731313";
 

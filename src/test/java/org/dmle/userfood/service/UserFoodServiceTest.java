@@ -1,8 +1,10 @@
 package org.dmle.userfood.service;
 
+import org.dmle.userfood.domain.Food;
 import org.dmle.userfood.domain.RateReport;
+import org.dmle.userfood.domain.User;
 import org.dmle.userfood.domain.UserFood;
-import org.dmle.userfood.repo.UserFoodRepository;
+import org.dmle.userfood.repo.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +15,9 @@ import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UserFoodServiceTest {
 
@@ -24,6 +28,12 @@ public class UserFoodServiceTest {
 
     @Mock
     private UserFoodRepository userFoodRepository;
+
+    @Mock
+    private UserRepositoryImpl userRepository;
+
+    @Mock
+    private FoodRepositoryImpl foodRepository;
 
     @BeforeEach
     public void setUp() {
@@ -134,6 +144,112 @@ public class UserFoodServiceTest {
     }
 
     @Test
+    public void addUserFood_validUserFood_returnsNewUserFoodId() {
+        String userFoodId = "123-23323123";
+
+        Map<String, Object> userFoodMap = new HashMap<>();
+        userFoodMap.put(UserFoodServiceImpl.USER_ID, "Some User id");
+        userFoodMap.put(UserFoodServiceImpl.FOOD_ID, "Some Food id");
+
+        Mockito.when(userRepository.getUserById(Mockito.anyString())).thenReturn(new User());
+        Mockito.when(foodRepository.getFoodById(Mockito.anyString())).thenReturn(new Food());
+
+        Mockito.when(userFoodRepository.getUserFoodByUserAndFoodId(Mockito.anyString(), Mockito.anyString())).thenReturn(null);
+        Mockito.when(userFoodRepository.addUserFood(Mockito.any())).thenReturn(userFoodId);
+
+        String newUserFoodId = service.addUserFood(userFoodMap);
+
+        Assertions.assertEquals(userFoodId, newUserFoodId);
+    }
+
+    @Test
+    public void addUserFood_nonValidUserId_throwsException() {
+        String userFoodId = "123-23323123";
+
+        Map<String, Object> userFoodMap = new HashMap<>();
+        userFoodMap.put(UserFoodServiceImpl.FOOD_ID, "Some Food id");
+
+        Mockito.when(userRepository.getUserById(Mockito.anyString())).thenReturn(null);
+        Mockito.when(foodRepository.getFoodById(Mockito.anyString())).thenReturn(new Food());
+
+        Mockito.when(userFoodRepository.getUserFoodByUserAndFoodId(Mockito.anyString(), Mockito.anyString())).thenReturn(null);
+        Mockito.when(userFoodRepository.addUserFood(Mockito.any())).thenReturn(userFoodId);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addUserFood(userFoodMap));
+    }
+
+    @Test
+    public void addUserFood_nonValidFoodId_throwsException() {
+        String userFoodId = "123-23323123";
+
+        Map<String, Object> userFoodMap = new HashMap<>();
+        userFoodMap.put(UserFoodServiceImpl.USER_ID, "Some User id");
+
+        Mockito.when(userRepository.getUserById(Mockito.anyString())).thenReturn(new User());
+        Mockito.when(foodRepository.getFoodById(Mockito.anyString())).thenReturn(null);
+
+        Mockito.when(userFoodRepository.getUserFoodByUserAndFoodId(Mockito.anyString(), Mockito.anyString())).thenReturn(null);
+        Mockito.when(userFoodRepository.addUserFood(Mockito.any())).thenReturn(userFoodId);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addUserFood(userFoodMap));
+    }
+
+    @Test
+    public void addUserFood_validUserFoodNotExist_returnsUserFoodId() {
+        String userFoodId = "123-23323123";
+
+        Map<String, Object> userFoodMap = new HashMap<>();
+        userFoodMap.put(UserFoodServiceImpl.USER_ID, "Some User id");
+        userFoodMap.put(UserFoodServiceImpl.FOOD_ID, "Some Food id");
+
+        Mockito.when(userRepository.getUserById(Mockito.anyString())).thenReturn(new User());
+        Mockito.when(foodRepository.getFoodById(Mockito.anyString())).thenReturn(new Food());
+
+        Mockito.when(userFoodRepository.getUserFoodByUserAndFoodId(Mockito.anyString(), Mockito.anyString())).thenReturn(null);
+        Mockito.when(userFoodRepository.addUserFood(Mockito.any())).thenReturn(userFoodId);
+
+        String newUserFoodId = service.addUserFood(userFoodMap);
+
+        Assertions.assertEquals(newUserFoodId, userFoodId);
+    }
+
+    @Test
+    public void addUserFood_nonValidUserFoodExist_throwsException() {
+        String userFoodId = "123-23323123";
+
+        Map<String, Object> userFoodMap = new HashMap<>();
+        userFoodMap.put(UserFoodServiceImpl.USER_ID, "Some User id");
+        userFoodMap.put(UserFoodServiceImpl.FOOD_ID, "Some Food id");
+
+        Mockito.when(userRepository.getUserById(Mockito.anyString())).thenReturn(new User());
+        Mockito.when(foodRepository.getFoodById(Mockito.anyString())).thenReturn(new Food());
+
+        Mockito.when(userFoodRepository.getUserFoodByUserAndFoodId(Mockito.anyString(), Mockito.anyString())).thenReturn(new UserFood());
+        Mockito.when(userFoodRepository.addUserFood(Mockito.any())).thenReturn(userFoodId);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addUserFood(userFoodMap));
+    }
+
+    @Test
+    public void deleteUserFoodByUserId_returnsBooleanInstance() {
+        String userId = "82749827";
+
+        Boolean result = service.deleteUserFoodByUserId(userId);
+        Assertions.assertInstanceOf(Boolean.class, result);
+    }
+
+    @Test
+    public void deleteUserFoodByUserId_existUser_returnsTrue() {
+        String userId = "82749827";
+        Boolean status = true;
+
+        Mockito.when(userFoodRepository.deleteUserFoodByUserId(Mockito.anyString())).thenReturn(status);
+
+        Boolean result = service.deleteUserFoodByUserId(userId);
+        Assertions.assertEquals(result, status);
+    }
+
+    @Test
     public void deleteUserFood_returnsBooleanInstance() {
         Mockito.when(userFoodRepository.getUserFoodById(Mockito.anyString())).thenReturn(new UserFood());
 
@@ -143,19 +259,22 @@ public class UserFoodServiceTest {
 
     @Test
     public void deleteUserFood_nonExistUser_throwsException() {
+        String userId = "82749827";
+
         Mockito.when(userFoodRepository.getUserFoodById(Mockito.anyString())).thenReturn(null);
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> service.deleteUserFood(Mockito.anyString()));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.deleteUserFood(userId));
     }
 
     @Test
     public void deleteUserFood_existUser_returnsTrue() {
+        String userId = "82749827";
         Boolean status = true;
 
         Mockito.when(userFoodRepository.getUserFoodById(Mockito.anyString())).thenReturn(new UserFood());
         Mockito.when(userFoodRepository.deleteUserFood(Mockito.anyString())).thenReturn(status);
 
-        Boolean result = service.deleteUserFood(Mockito.anyString());
+        Boolean result = service.deleteUserFood(userId);
         Assertions.assertEquals(result, status);
     }
 }

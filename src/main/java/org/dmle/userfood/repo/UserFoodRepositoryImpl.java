@@ -99,6 +99,17 @@ public class UserFoodRepositoryImpl implements UserFoodRepository{
     }
 
     @Override
+    public Boolean deleteUserFoodByUserId(String userId) {
+        String sql = "delete from user_food where user_id=?";
+
+        try {
+            jdbcTemplate.update(sql, userId);
+            return true;
+        } catch (DataAccessException ignored) {}
+        return false;
+    }
+
+    @Override
     public Boolean deleteUserFood(String userFoodId) {
         String sql = "delete from user_food where id=?";
 

@@ -14,5 +14,6 @@ public interface UserFoodService {
     UserFood getUserFoodByUserAndFoodId(String userId, String foodId);
     List<RateReport> getEatingHealthReport(String userId);
     String addUserFood(Map<String, Object> newUserFood);
+    Boolean deleteUserFoodByUserId(String userId);
     Boolean deleteUserFood(String userFoodId);
 }
