@@ -13,6 +13,8 @@ public class UserFoodRowMapper implements RowMapper<UserFood> {
         userFood.setId(rs.getString("id"));
         userFood.setUserId(rs.getString("user_id"));
         userFood.setFoodId(rs.getString("food_id"));
+        userFood.setName(rs.getString("name"));
+        userFood.setRateId(rs.getString("rate_id"));
 
         return userFood;
     }

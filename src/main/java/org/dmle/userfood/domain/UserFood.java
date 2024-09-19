@@ -4,6 +4,8 @@ public class UserFood {
     String id;
     String userId;
     String foodId;
+    String name;
+    String rateId;
 
     public String getId() {
         return id;
@@ -29,12 +31,30 @@ public class UserFood {
         this.foodId = foodId;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getRateId() {
+        return rateId;
+    }
+
+    public void setRateId(String rateId) {
+        this.rateId = rateId;
+    }
+
     @Override
     public String toString() {
         return "UserFood{" +
                 "id='" + id + '\'' +
                 ", userId='" + userId + '\'' +
                 ", foodId='" + foodId + '\'' +
+                ", name='" + name + '\'' +
+                ", rateId='" + rateId + '\'' +
                 '}';
     }
 }
