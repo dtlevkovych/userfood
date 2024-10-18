@@ -1,9 +1,13 @@
 package org.dmle.userfood.service;
 
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.micrometer.common.util.StringUtils;
 import org.apache.commons.collections4.MapUtils;
+import org.dmle.userfood.domain.Rate;
 import org.dmle.userfood.domain.RateReport;
 import org.dmle.userfood.domain.UserFood;
+import org.dmle.userfood.domain.UserFoodDTO;
 import org.dmle.userfood.repo.FoodRepositoryImpl;
 import org.dmle.userfood.repo.UserFoodRepository;
 import org.dmle.userfood.repo.UserRepositoryImpl;
@@ -12,12 +16,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class UserFoodServiceImpl implements UserFoodService{
-
-    public static final String USER_ID = "userId";
-    public static final String FOOD_ID = "foodId";
 
     @Autowired
     private UserFoodRepository userFoodRepository;
@@ -27,6 +30,9 @@ public class UserFoodServiceImpl implements UserFoodService{
 
     @Autowired
     private FoodRepositoryImpl foodRepository;
+
+    @Autowired
+    private MapperService mapperService;
 
     @Override
     public List<UserFood> getUserFoods() {
@@ -54,19 +60,19 @@ public class UserFoodServiceImpl implements UserFoodService{
     }
 
     @Override
-    public String addUserFood(Map<String, Object> newUserFood) {
+    public String addUserFood(UserFoodDTO newUserFood) {
         return userFoodRepository.addUserFood(validateUserFood(newUserFood));
     }
 
-    private UserFood validateUserFood(Map<String, Object> userFoodMap) {
+    private UserFood validateUserFood(UserFoodDTO userFoodDTO) {
         UserFood userFood = new UserFood();
 
-        userFood.setUserId(MapUtils.getString(userFoodMap, USER_ID));
+        mapperService.updateValues(userFood, userFoodDTO);
+
         if (StringUtils.isBlank(userFood.getUserId())) {
             throw new IllegalArgumentException("User id");
         }
 
-        userFood.setFoodId(MapUtils.getString(userFoodMap, FOOD_ID));
         if (StringUtils.isBlank(userFood.getFoodId())) {
             throw new IllegalArgumentException("Food id");
         }

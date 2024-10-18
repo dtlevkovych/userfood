@@ -1,6 +1,7 @@
 package org.dmle.userfood.service;
 
 import org.dmle.userfood.domain.User;
+import org.dmle.userfood.domain.UserDTO;
 import org.dmle.userfood.repo.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -92,15 +93,15 @@ class UserServiceTest {
     public void addUser_validUser_returnsNewUserId() {
         String userId = "123-23323123";
 
-        Map<String, Object> userMap = new HashMap<>();
-        userMap.put(UserServiceImpl.FIRST_NAME, "Some First Name");
-        userMap.put(UserServiceImpl.LAST_NAME, "Some Last Name");
-        userMap.put(UserServiceImpl.DOB, 1231231L);
+        UserDTO userDTO = new UserDTO();
+        userDTO.setFirstName("Some First Name");
+        userDTO.setLastName("Some Last Name");
+        userDTO.setDob(1231231L);
 
         Mockito.when(userRepository.getUsersByName(Mockito.anyString(), Mockito.anyString())).thenReturn(Collections.emptyList());
         Mockito.when(userRepository.addUser(Mockito.any())).thenReturn(userId);
 
-        String newUserId = service.addUser(userMap);
+        String newUserId = service.addUser(userDTO);
 
         Assertions.assertEquals(userId, newUserId);
     }
@@ -109,56 +110,56 @@ class UserServiceTest {
     public void addUser_nonValidFirstName_throwsException() {
         String userId = "123-23323123";
 
-        Map<String, Object> userMap = new HashMap<>();
-        userMap.put(UserServiceImpl.LAST_NAME, "Some Last Name");
-        userMap.put(UserServiceImpl.DOB, 1231231L);
+        UserDTO userDTO = new UserDTO();
+        userDTO.setLastName("Some Last Name");
+        userDTO.setDob(1231231L);
 
         Mockito.when(userRepository.getUsersByName(Mockito.anyString(), Mockito.anyString())).thenReturn(Collections.emptyList());
         Mockito.when(userRepository.addUser(Mockito.any())).thenReturn(userId);
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addUser(userMap));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addUser(userDTO));
     }
 
     @Test
     public void addUser_nonValidLastName_throwsException() {
         String userId = "123-23323123";
 
-        Map<String, Object> userMap = new HashMap<>();
-        userMap.put(UserServiceImpl.FIRST_NAME, "Some First Name");
-        userMap.put(UserServiceImpl.DOB, 1231231L);
+        UserDTO userDTO = new UserDTO();
+        userDTO.setFirstName("Some First Name");
+        userDTO.setDob(1231231L);
 
         Mockito.when(userRepository.getUsersByName(Mockito.anyString(), Mockito.anyString())).thenReturn(Collections.emptyList());
         Mockito.when(userRepository.addUser(Mockito.any())).thenReturn(userId);
-        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addUser(userMap));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addUser(userDTO));
     }
 
     @Test
     public void addUser_nonValidDob_throwsException() {
         String userId = "123-23323123";
 
-        Map<String, Object> userMap = new HashMap<>();
-        userMap.put(UserServiceImpl.FIRST_NAME, "Some First Name");
-        userMap.put(UserServiceImpl.LAST_NAME, "Some Last Name");
+        UserDTO userDTO = new UserDTO();
+        userDTO.setFirstName("Some First Name");
+        userDTO.setLastName("Some Last Name");
 
         Mockito.when(userRepository.getUsersByName(Mockito.anyString(), Mockito.anyString())).thenReturn(Collections.emptyList());
         Mockito.when(userRepository.addUser(Mockito.any())).thenReturn(userId);
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addUser(userMap));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addUser(userDTO));
     }
 
     @Test
     public void addUser_validUserNotExist_returnsUserId() {
         String userId = "123-23323123";
 
-        Map<String, Object> userMap = new HashMap<>();
-        userMap.put(UserServiceImpl.FIRST_NAME, "Some First Name");
-        userMap.put(UserServiceImpl.LAST_NAME, "Some Last Name");
-        userMap.put(UserServiceImpl.DOB, 1231231L);
+        UserDTO userDTO = new UserDTO();
+        userDTO.setFirstName("Some First Name");
+        userDTO.setLastName("Some Last Name");
+        userDTO.setDob(1231231L);
 
         Mockito.when(userRepository.getUsersByName(Mockito.anyString(), Mockito.anyString())).thenReturn(Collections.emptyList());
         Mockito.when(userRepository.addUser(Mockito.any())).thenReturn(userId);
 
-        String newUserId = service.addUser(userMap);
+        String newUserId = service.addUser(userDTO);
 
         Assertions.assertEquals(newUserId, userId);
     }
@@ -167,15 +168,20 @@ class UserServiceTest {
     public void addUser_nonValidUserExist_throwsException() {
         String userId = "123-23323123";
 
-        Map<String, Object> userMap = new HashMap<>();
-        userMap.put(UserServiceImpl.FIRST_NAME, "Some First Name");
-        userMap.put(UserServiceImpl.LAST_NAME, "Some Last Name");
-        userMap.put(UserServiceImpl.DOB, 1231231L);
+        UserDTO userDTO = new UserDTO();
+        userDTO.setFirstName("Some First Name");
+        userDTO.setLastName("Some Last Name");
+        userDTO.setDob(1231231L);
 
-        Mockito.when(userRepository.getUsersByName(Mockito.anyString(), Mockito.anyString())).thenReturn(List.of(new User()));
+        User user = new User();
+        user.setId("1");
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
+
+        Mockito.when(userRepository.getUsersByName(Mockito.anyString(), Mockito.anyString())).thenReturn(List.of(user));
         Mockito.when(userRepository.addUser(Mockito.any())).thenReturn(userId);
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addUser(userMap));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addUser(userDTO));
     }
 
     @Test
@@ -183,15 +189,16 @@ class UserServiceTest {
         String userId = "123-23323123";
         Boolean result = true;
 
-        Map<String, Object> userMap = new HashMap<>();
-        userMap.put(UserServiceImpl.FIRST_NAME, "Some First Name");
-        userMap.put(UserServiceImpl.LAST_NAME, "Some Last Name");
-        userMap.put(UserServiceImpl.DOB, 1231231L);
+        UserDTO userDTO = new UserDTO();
+        userDTO.setFirstName("Some First Name");
+        userDTO.setLastName("Some Last Name");
+        userDTO.setDob(1231231L);
 
+        Mockito.when(userRepository.getUserById(Mockito.anyString())).thenReturn(new User());
         Mockito.when(userRepository.getUsersByName(Mockito.anyString(), Mockito.anyString())).thenReturn(Collections.emptyList());
         Mockito.when(userRepository.updateUser(Mockito.anyString(), Mockito.any())).thenReturn(result);
 
-        Boolean serviceResult = service.updateUser(userId, userMap);
+        Boolean serviceResult = service.updateUser(userId, userDTO);
 
         Assertions.assertEquals(result, serviceResult);
     }

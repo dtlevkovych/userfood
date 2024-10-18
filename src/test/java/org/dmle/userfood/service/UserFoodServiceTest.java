@@ -1,9 +1,6 @@
 package org.dmle.userfood.service;
 
-import org.dmle.userfood.domain.Food;
-import org.dmle.userfood.domain.RateReport;
-import org.dmle.userfood.domain.User;
-import org.dmle.userfood.domain.UserFood;
+import org.dmle.userfood.domain.*;
 import org.dmle.userfood.repo.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,9 +12,7 @@ import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class UserFoodServiceTest {
 
@@ -147,9 +142,9 @@ public class UserFoodServiceTest {
     public void addUserFood_validUserFood_returnsNewUserFoodId() {
         String userFoodId = "123-23323123";
 
-        Map<String, Object> userFoodMap = new HashMap<>();
-        userFoodMap.put(UserFoodServiceImpl.USER_ID, "Some User id");
-        userFoodMap.put(UserFoodServiceImpl.FOOD_ID, "Some Food id");
+        UserFoodDTO userFoodDTO = new UserFoodDTO();
+        userFoodDTO.setUserId("Some User id");
+        userFoodDTO.setFoodId("Some Food id");
 
         Mockito.when(userRepository.getUserById(Mockito.anyString())).thenReturn(new User());
         Mockito.when(foodRepository.getFoodById(Mockito.anyString())).thenReturn(new Food());
@@ -157,7 +152,7 @@ public class UserFoodServiceTest {
         Mockito.when(userFoodRepository.getUserFoodByUserAndFoodId(Mockito.anyString(), Mockito.anyString())).thenReturn(null);
         Mockito.when(userFoodRepository.addUserFood(Mockito.any())).thenReturn(userFoodId);
 
-        String newUserFoodId = service.addUserFood(userFoodMap);
+        String newUserFoodId = service.addUserFood(userFoodDTO);
 
         Assertions.assertEquals(userFoodId, newUserFoodId);
     }
@@ -166,8 +161,8 @@ public class UserFoodServiceTest {
     public void addUserFood_nonValidUserId_throwsException() {
         String userFoodId = "123-23323123";
 
-        Map<String, Object> userFoodMap = new HashMap<>();
-        userFoodMap.put(UserFoodServiceImpl.FOOD_ID, "Some Food id");
+        UserFoodDTO userFoodDTO = new UserFoodDTO();
+        userFoodDTO.setFoodId("Some Food id");
 
         Mockito.when(userRepository.getUserById(Mockito.anyString())).thenReturn(null);
         Mockito.when(foodRepository.getFoodById(Mockito.anyString())).thenReturn(new Food());
@@ -175,15 +170,15 @@ public class UserFoodServiceTest {
         Mockito.when(userFoodRepository.getUserFoodByUserAndFoodId(Mockito.anyString(), Mockito.anyString())).thenReturn(null);
         Mockito.when(userFoodRepository.addUserFood(Mockito.any())).thenReturn(userFoodId);
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addUserFood(userFoodMap));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addUserFood(userFoodDTO));
     }
 
     @Test
     public void addUserFood_nonValidFoodId_throwsException() {
         String userFoodId = "123-23323123";
 
-        Map<String, Object> userFoodMap = new HashMap<>();
-        userFoodMap.put(UserFoodServiceImpl.USER_ID, "Some User id");
+        UserFoodDTO userFoodDTO = new UserFoodDTO();
+        userFoodDTO.setUserId("Some User id");
 
         Mockito.when(userRepository.getUserById(Mockito.anyString())).thenReturn(new User());
         Mockito.when(foodRepository.getFoodById(Mockito.anyString())).thenReturn(null);
@@ -191,16 +186,16 @@ public class UserFoodServiceTest {
         Mockito.when(userFoodRepository.getUserFoodByUserAndFoodId(Mockito.anyString(), Mockito.anyString())).thenReturn(null);
         Mockito.when(userFoodRepository.addUserFood(Mockito.any())).thenReturn(userFoodId);
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addUserFood(userFoodMap));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addUserFood(userFoodDTO));
     }
 
     @Test
     public void addUserFood_validUserFoodNotExist_returnsUserFoodId() {
         String userFoodId = "123-23323123";
 
-        Map<String, Object> userFoodMap = new HashMap<>();
-        userFoodMap.put(UserFoodServiceImpl.USER_ID, "Some User id");
-        userFoodMap.put(UserFoodServiceImpl.FOOD_ID, "Some Food id");
+        UserFoodDTO userFoodDTO = new UserFoodDTO();
+        userFoodDTO.setUserId("Some User id");
+        userFoodDTO.setFoodId("Some Food id");
 
         Mockito.when(userRepository.getUserById(Mockito.anyString())).thenReturn(new User());
         Mockito.when(foodRepository.getFoodById(Mockito.anyString())).thenReturn(new Food());
@@ -208,7 +203,7 @@ public class UserFoodServiceTest {
         Mockito.when(userFoodRepository.getUserFoodByUserAndFoodId(Mockito.anyString(), Mockito.anyString())).thenReturn(null);
         Mockito.when(userFoodRepository.addUserFood(Mockito.any())).thenReturn(userFoodId);
 
-        String newUserFoodId = service.addUserFood(userFoodMap);
+        String newUserFoodId = service.addUserFood(userFoodDTO);
 
         Assertions.assertEquals(newUserFoodId, userFoodId);
     }
@@ -217,9 +212,9 @@ public class UserFoodServiceTest {
     public void addUserFood_nonValidUserFoodExist_throwsException() {
         String userFoodId = "123-23323123";
 
-        Map<String, Object> userFoodMap = new HashMap<>();
-        userFoodMap.put(UserFoodServiceImpl.USER_ID, "Some User id");
-        userFoodMap.put(UserFoodServiceImpl.FOOD_ID, "Some Food id");
+        UserFoodDTO userFoodDTO = new UserFoodDTO();
+        userFoodDTO.setUserId("Some User id");
+        userFoodDTO.setUserId("Some Food id");
 
         Mockito.when(userRepository.getUserById(Mockito.anyString())).thenReturn(new User());
         Mockito.when(foodRepository.getFoodById(Mockito.anyString())).thenReturn(new Food());
@@ -227,7 +222,7 @@ public class UserFoodServiceTest {
         Mockito.when(userFoodRepository.getUserFoodByUserAndFoodId(Mockito.anyString(), Mockito.anyString())).thenReturn(new UserFood());
         Mockito.when(userFoodRepository.addUserFood(Mockito.any())).thenReturn(userFoodId);
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addUserFood(userFoodMap));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addUserFood(userFoodDTO));
     }
 
     @Test

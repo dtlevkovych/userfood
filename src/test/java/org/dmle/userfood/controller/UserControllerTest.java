@@ -109,13 +109,13 @@ class UserControllerTest {
 
     @Test
     public void addUser_returnsResponseEntityInstance() {
-        ResponseEntity<String> result = controller.addUser(Mockito.anyMap());
+        ResponseEntity<String> result = controller.addUser(Mockito.any());
         Assertions.assertInstanceOf(ResponseEntity.class, result);
     }
 
     @Test
     public void addUser_returnsResponseEntityOKStatus() {
-        ResponseEntity<String> result = controller.addUser(Mockito.anyMap());
+        ResponseEntity<String> result = controller.addUser(Mockito.any());
         Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
     }
 
@@ -123,21 +123,21 @@ class UserControllerTest {
     public void addUser_returnsResponseEntityWithId() {
         String userId = "12054-14525-9535";
 
-        Mockito.when(userService.addUser(Mockito.anyMap())).thenReturn(userId);
+        Mockito.when(userService.addUser(Mockito.any())).thenReturn(userId);
 
-        ResponseEntity<String> result = controller.addUser(Mockito.anyMap());
+        ResponseEntity<String> result = controller.addUser(Mockito.any());
         Assertions.assertEquals(userId, result.getData());
     }
 
     @Test
     public void updateUser_returnsResponseEntityInstance() {
-        ResponseEntity<Boolean> result = controller.updateUser(Mockito.anyString(), Mockito.anyMap());
+        ResponseEntity<Boolean> result = controller.updateUser(Mockito.anyString(), Mockito.any());
         Assertions.assertInstanceOf(ResponseEntity.class, result);
     }
 
     @Test
     public void updateUser_returnsResponseEntityOKStatus() {
-        ResponseEntity<Boolean> result = controller.updateUser(Mockito.anyString(), Mockito.anyMap());
+        ResponseEntity<Boolean> result = controller.updateUser(Mockito.anyString(), Mockito.any());
         Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
     }
 
@@ -145,9 +145,9 @@ class UserControllerTest {
     public void updateUser_returnsResponseEntityWithTrue() {
         Boolean status = true;
 
-        Mockito.when(userService.updateUser(Mockito.anyString(), Mockito.anyMap())).thenReturn(status);
+        Mockito.when(userService.updateUser(Mockito.anyString(), Mockito.any())).thenReturn(status);
 
-        ResponseEntity<Boolean> result = controller.updateUser(Mockito.anyString(), Mockito.anyMap());
+        ResponseEntity<Boolean> result = controller.updateUser(Mockito.anyString(), Mockito.any());
         Assertions.assertEquals(status, result.getData());
     }
 

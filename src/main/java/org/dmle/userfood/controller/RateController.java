@@ -2,6 +2,7 @@ package org.dmle.userfood.controller;
 
 import org.dmle.userfood.config.ApiPrefixController;
 import org.dmle.userfood.domain.Rate;
+import org.dmle.userfood.domain.RateDTO;
 import org.dmle.userfood.domain.ResponseEntity;
 import org.dmle.userfood.service.RateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,12 +43,12 @@ public class RateController {
     }
 
     @PostMapping(value = "rate")
-    public ResponseEntity<String> addRate(@RequestBody Map<String, Object> newRate) {
+    public ResponseEntity<String> addRate(@RequestBody RateDTO newRate) {
         return ResponseEntity.successResponse(rateService.addRate(newRate));
     }
 
     @PutMapping(value = "rate/{id}")
-    public ResponseEntity<Boolean> updateRate(@PathVariable("id") String rateId, @RequestBody Map<String, Object> updateRate) {
+    public ResponseEntity<Boolean> updateRate(@PathVariable("id") String rateId, @RequestBody RateDTO updateRate) {
         return ResponseEntity.successResponse(rateService.updateRate(rateId, updateRate));
     }
 

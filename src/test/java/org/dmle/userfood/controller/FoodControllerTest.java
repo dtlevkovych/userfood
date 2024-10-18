@@ -110,13 +110,13 @@ public class FoodControllerTest {
 
     @Test
     public void addFood_returnsResponseEntityInstance() {
-        ResponseEntity<String> result = controller.addFood(Mockito.anyMap());
+        ResponseEntity<String> result = controller.addFood(Mockito.any());
         Assertions.assertInstanceOf(ResponseEntity.class, result);
     }
 
     @Test
     public void addFood_returnsResponseEntityOKStatus() {
-        ResponseEntity<String> result = controller.addFood(Mockito.anyMap());
+        ResponseEntity<String> result = controller.addFood(Mockito.any());
         Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
     }
 
@@ -124,21 +124,21 @@ public class FoodControllerTest {
     public void addFood_returnsResponseEntityWithId() {
         String foodId = "";
 
-        Mockito.when(foodService.addFood(Mockito.anyMap())).thenReturn(foodId);
+        Mockito.when(foodService.addFood(Mockito.any())).thenReturn(foodId);
 
-        ResponseEntity<String> result = controller.addFood(Mockito.anyMap());
+        ResponseEntity<String> result = controller.addFood(Mockito.any());
         Assertions.assertEquals(foodId, result.getData());
     }
 
     @Test
     public void updateFood_returnsResponseEntityInstance() {
-        ResponseEntity<Boolean> result = controller.updateFood(Mockito.anyString(), Mockito.anyMap());
+        ResponseEntity<Boolean> result = controller.updateFood(Mockito.anyString(), Mockito.any());
         Assertions.assertInstanceOf(ResponseEntity.class, result);
     }
 
     @Test
     public void updateFood_returnsResponseEntityOKStatus() {
-        ResponseEntity<Boolean> result = controller.updateFood(Mockito.anyString(), Mockito.anyMap());
+        ResponseEntity<Boolean> result = controller.updateFood(Mockito.anyString(), Mockito.any());
         Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
     }
 
@@ -146,9 +146,9 @@ public class FoodControllerTest {
     public void updateFood_returnsResponseEntityWithTrue() {
         Boolean status = true;
 
-        Mockito.when(foodService.updateFood(Mockito.anyString(), Mockito.anyMap())).thenReturn(status);
+        Mockito.when(foodService.updateFood(Mockito.anyString(), Mockito.any())).thenReturn(status);
 
-        ResponseEntity<Boolean> result = controller.updateFood(Mockito.anyString(), Mockito.anyMap());
+        ResponseEntity<Boolean> result = controller.updateFood(Mockito.anyString(), Mockito.any());
         Assertions.assertEquals(status, result.getData());
     }
 

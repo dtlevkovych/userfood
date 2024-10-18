@@ -1,21 +1,12 @@
 package org.dmle.userfood.domain;
 
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
-public class User {
-    private String id;
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class UserDTO {
     private String firstName;
     private String lastName;
     private Long dob;
-    private Long createdAt;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -37,26 +28,16 @@ public class User {
         return dob;
     }
 
-    public void setDob(long dob) {
+    public void setDob(Long dob) {
         this.dob = dob;
     }
 
-    public Long getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(long createdAt) {
-        this.createdAt = createdAt;
-    }
 
     @Override
     public String toString() {
         return "User{" +
-                "id='" + id + '\'' +
-                ", firstName='" + firstName + '\'' +
+                " firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", dob=" + dob +
-                ", createdAt=" + createdAt +
-                '}';
+                ", dob=" + dob + '}';
     }
 }

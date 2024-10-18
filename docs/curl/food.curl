@@ -1,33 +1,33 @@
 get_foods:
-curl -i -X GET "http://127.0.0.1:8080/api/foods?phrase="
+curl -i -X GET "http://127.0.0.1:3000/api/foods?phrase="
 
 get_food:
-curl -i -X GET "http://127.0.0.1:8080/api/food/1064eedc-aa9a-4d05-91d1-70f4c68b719e"
+curl -i -X GET "http://127.0.0.1:3000/api/food/e127698e-8807-478b-8a50-d27b0c0bdf26"
 
 get_foods_pagination:
-curl -i -X GET "http://127.0.0.1:8080/api/foods/pagination?limit=2&page=1"
+curl -i -X GET "http://127.0.0.1:3000/api/foods/pagination?limit=2&page=1"
 
 add food:
-curl -i -X POST "http://127.0.0.1:8080/api/food" \
+curl -i -X POST "http://127.0.0.1:3000/api/food" \
     -H 'Content-Type: application/json' \
     -d '{"name": "Salad", "rateId": 1}'
 
-curl -i -X POST "http://127.0.0.1:8080/api/food" \
+curl -i -X POST "http://127.0.0.1:3000/api/food" \
     -H 'Content-Type: application/json' \
     -d '{"name": "Potato", "rateId": 2}'
 
-curl -i -X POST "http://127.0.0.1:8080/api/food" \
+curl -i -X POST "http://127.0.0.1:3000/api/food" \
     -H 'Content-Type: application/json' \
     -d '{"name": "Chips", "rateId": 3}'
 
-curl -i -X POST "http://127.0.0.1:8080/api/food" \
+curl -i -X POST "http://127.0.0.1:3000/api/food" \
     -H 'Content-Type: application/json' \
-    -d '{"name": "Tomato", "rateId": 1}'
+    -d '{"name": "Potato", "rateId": 2}'
 
 update:
-curl -i -X PUT "http://127.0.0.1:8080/api/food/de682fec-792d-497d-bb76-e7e9c4c45f41" \
+curl -i -X PUT "http://127.0.0.1:3000/api/food/e127698e-8807-478b-8a50-d27b0c0bdf26" \
     -H 'Content-Type: application/json' \
-    -d '{"name": "Potato", "rateId": "2"}'
+    -d '{"name": "Potato", "rateId": 2}'
 
 delete_food:
-curl -i -X DELETE "http://127.0.0.1:8080/api/food/de682fec-792d-497d-bb76-e7e9c4c45f41"
+curl -i -X DELETE "http://127.0.0.1:3000/api/food/dc118b9c-d76d-43f8-bee9-24caffe2173f"

@@ -170,13 +170,13 @@ public class UserFoodControllerTest {
 
     @Test
     public void addUserFood_returnsResponseEntityInstance() {
-        ResponseEntity<String> result = controller.addUserFood(Mockito.anyMap());
+        ResponseEntity<String> result = controller.addUserFood(Mockito.any());
         Assertions.assertInstanceOf(ResponseEntity.class, result);
     }
 
     @Test
     public void addUserFood_returnsResponseEntityOKStatus() {
-        ResponseEntity<String> result = controller.addUserFood(Mockito.anyMap());
+        ResponseEntity<String> result = controller.addUserFood(Mockito.any());
         Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
     }
 
@@ -184,9 +184,9 @@ public class UserFoodControllerTest {
     public void addUserFood_returnsResponseEntityWithId() {
         String userFoodId = "12054-14525-9535";
 
-        Mockito.when(userFoodService.addUserFood(Mockito.anyMap())).thenReturn(userFoodId);
+        Mockito.when(userFoodService.addUserFood(Mockito.any())).thenReturn(userFoodId);
 
-        ResponseEntity<String> result = controller.addUserFood(Mockito.anyMap());
+        ResponseEntity<String> result = controller.addUserFood(Mockito.any());
         Assertions.assertEquals(userFoodId, result.getData());
     }
 

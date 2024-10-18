@@ -1,41 +1,41 @@
 get_users:
-curl -i -X GET "http://127.0.0.1:8080/api/users"
+curl -i -X GET "http://127.0.0.1:3000/api/users"
 
 get_users_pagination:
-curl -i -X GET "http://127.0.0.1:8080/api/users/pagination?limit=2&page=1"
+curl -i -X GET "http://127.0.0.1:3000/api/users/pagination?limit=2&page=1"
 
 get_user:
-curl -i -X GET "http://127.0.0.1:8080/api/user/aadf8211-931d-4b0e-8037-38ab6588b10a"
+curl -i -X GET "http://127.0.0.1:3000/api/user/5351c7d9-d765-4df1-86e0-be76354c9bc1"
 
 add_user:
-curl -i -X POST "http://127.0.0.1:8080/api/user" \
+curl -i -X POST "http://127.0.0.1:3000/api/user" \
     -H 'Content-Type: application/json' \
     -d '{"firstName": "Daryna", "lastName": "Levkovych", "dob": 11}'
 
-curl -i -X POST "http://127.0.0.1:8080/api/user" \
+curl -i -X POST "http://127.0.0.1:3000/api/user" \
     -H 'Content-Type: application/json' \
     -d '{"firstName": "Dmytro", "lastName": "Levkovych", "dob": 16}'
 
-curl -i -X POST "http://127.0.0.1:8080/api/user" \
+curl -i -X POST "http://127.0.0.1:3000/api/user" \
     -H 'Content-Type: application/json' \
     -d '{"firstName": "Sofiia", "lastName": "Levkovych", "dob": 18}'
 
-curl -i -X POST "http://127.0.0.1:8080/api/user" \
+curl -i -X POST "http://127.0.0.1:3000/api/user" \
     -H 'Content-Type: application/json' \
     -d '{"firstName": "Yurii", "lastName": "Levkovych", "dob": 46}'
 
-curl -i -X POST "http://127.0.0.1:8080/api/user" \
+curl -i -X POST "http://127.0.0.1:3000/api/user" \
     -H 'Content-Type: application/json' \
     -d '{"firstName": "Ivanna", "lastName": "Levkovych", "dob": 40}'
 
-curl -i -X POST "http://127.0.0.1:8080/api/user" \
+curl -i -X POST "http://127.0.0.1:3000/api/user" \
     -H 'Content-Type: application/json' \
-    -d '{"firstName": "Petro", "lastName": "Levkovych", "dob": 66}'
+    -d '{"firstName": "Peto", "lastName": "Lev", "dob": 6}'
 
 update:
-curl -i -X PUT "http://127.0.0.1:8080/api/user/6ebdedba-e280-49db-b1fb-229eddcc0a98" \
+curl -i -X PUT "http://127.0.0.1:3000/api/user/aca87bbb-83be-4964-9b8f-c71f51e9ea7f" \
     -H 'Content-Type: application/json' \
-    -d '{"firstName": "DmtR", "lastName": "Levkovych10", "dob": 0}'
+    -d '{"firstName": "P", "lastName": "L"}'
 
 delete_user:
-curl -i -X DELETE "http://127.0.0.1:8080/api/user/023c3931-9a42-494c-91eb-63d1ed85141d"
+curl -i -X DELETE "http://127.0.0.1:3000/api/user/023c3931-9a42-494c-91eb-63d1ed85141d"

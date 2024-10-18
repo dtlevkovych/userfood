@@ -4,6 +4,7 @@ import org.dmle.userfood.config.ApiPrefixController;
 import org.dmle.userfood.domain.RateReport;
 import org.dmle.userfood.domain.ResponseEntity;
 import org.dmle.userfood.domain.UserFood;
+import org.dmle.userfood.domain.UserFoodDTO;
 import org.dmle.userfood.service.UserFoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -53,7 +54,7 @@ public class UserFoodController {
     }
 
     @PostMapping(value = "userfoods")
-    public ResponseEntity<String> addUserFood(@RequestBody Map<String, Object> newUserFood) {
+    public ResponseEntity<String> addUserFood(@RequestBody UserFoodDTO newUserFood) {
         return ResponseEntity.successResponse(userFoodService.addUserFood(newUserFood));
     }
 

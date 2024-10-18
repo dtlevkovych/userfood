@@ -2,6 +2,7 @@ package org.dmle.userfood.controller;
 
 import org.dmle.userfood.config.ApiPrefixController;
 import org.dmle.userfood.domain.Food;
+import org.dmle.userfood.domain.FoodDTO;
 import org.dmle.userfood.domain.ResponseEntity;
 import org.dmle.userfood.service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,12 +44,12 @@ public class FoodController {
     }
 
     @PostMapping(value = "food")
-    public ResponseEntity<String> addFood(@RequestBody Map<String, Object> newFood) {
+    public ResponseEntity<String> addFood(@RequestBody FoodDTO newFood) {
         return ResponseEntity.successResponse(foodService.addFood(newFood));
     }
 
     @PutMapping(value = "food/{id}")
-    public ResponseEntity<Boolean> updateFood(@PathVariable("id") String foodId, @RequestBody Map<String, Object> updateFood) {
+    public ResponseEntity<Boolean> updateFood(@PathVariable("id") String foodId, @RequestBody FoodDTO updateFood) {
         return ResponseEntity.successResponse(foodService.updateFood(foodId, updateFood));
     }
 

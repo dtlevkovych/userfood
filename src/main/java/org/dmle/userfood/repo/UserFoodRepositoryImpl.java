@@ -19,7 +19,11 @@ public class UserFoodRepositoryImpl implements UserFoodRepository{
 
     @Override
     public List<UserFood> getUserFoods() {
-        String sql = "select * from user_food";
+        String sql = """
+            select uf.*, f.name, f.rate_id 
+            from user_food as uf 
+            inner join food as f on uf.food_id=f.id
+            """;
         try {
             return jdbcTemplate.query(sql, new UserFoodRowMapper());
         } catch (EmptyResultDataAccessException ignored) {}
@@ -28,7 +32,12 @@ public class UserFoodRepositoryImpl implements UserFoodRepository{
 
     @Override
     public List<UserFood> getUserFoodsByUserId(String userId) {
-        String sql = "select * from user_food where user_id=?";
+        String sql = """
+                select uf.*, f.name, f.rate_id 
+                from user_food as uf 
+                inner join food as f on uf.food_id=f.id 
+                where uf.user_id=?
+                """;
         try {
             return jdbcTemplate.query(sql, new UserFoodRowMapper(), userId);
         } catch (EmptyResultDataAccessException ignored) {}
@@ -52,7 +61,12 @@ public class UserFoodRepositoryImpl implements UserFoodRepository{
 
     @Override
     public UserFood getUserFoodByUserAndFoodId(String userId, String foodId) {
-        String sql = "select * from user_food where user_id=? and food_id=?";
+        String sql = """
+                select uf.*, f.name, f.rate_id 
+                from user_food as uf 
+                inner join food as f on uf.food_id=f.id 
+                where uf.user_id=? and uf.food_id=?
+                """;
         try {
             return jdbcTemplate.queryForObject(sql, new UserFoodRowMapper(), userId, foodId);
         } catch (EmptyResultDataAccessException ignored) {}
@@ -78,7 +92,12 @@ public class UserFoodRepositoryImpl implements UserFoodRepository{
 
     @Override
     public UserFood getUserFoodById(String userFoodId) {
-        String sql = "select id, user_id, food_id from user_food where id=? limit 0,1";
+        String sql = """
+            select uf.id, uf.user_id, uf.food_id, f.name, f.rate_id 
+            from user_food as uf 
+            inner join food as f on uf.food_id=f.id 
+            where uf.id=? limit 0,1
+            """;
         try {
             return jdbcTemplate.queryForObject(sql, new UserFoodRowMapper(), userFoodId);
         } catch (EmptyResultDataAccessException ignored) {}

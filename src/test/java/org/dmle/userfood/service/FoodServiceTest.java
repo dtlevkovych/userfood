@@ -1,6 +1,9 @@
 package org.dmle.userfood.service;
 
 import org.dmle.userfood.domain.Food;
+import org.dmle.userfood.domain.FoodDTO;
+import org.dmle.userfood.domain.User;
+import org.dmle.userfood.domain.UserDTO;
 import org.dmle.userfood.repo.FoodRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -96,14 +99,15 @@ public class FoodServiceTest {
     public void addFood_validFood_returnsNewFoodId() {
         String foodId = "123-235673-123";
 
-        Map<String, Object> foodMap = new HashMap<>();
-        foodMap.put(FoodServiceImpl.NAME, "Some Name");
-        foodMap.put(FoodServiceImpl.RATE_ID, "Some Rate id");
+
+        FoodDTO foodDTO = new FoodDTO();
+        foodDTO.setName("Some Name");
+        foodDTO.setRateId("Some Rate id");
 
         Mockito.when(foodRepository.getFoodsByName(Mockito.anyString())).thenReturn(Collections.emptyList());
         Mockito.when(foodRepository.addFood(Mockito.any())).thenReturn(foodId);
 
-        String newFoodId = service.addFood(foodMap);
+        String newFoodId = service.addFood(foodDTO);
 
         Assertions.assertEquals(foodId, newFoodId);
     }
@@ -112,40 +116,40 @@ public class FoodServiceTest {
     public void addFood_nonValidName_throwsException() {
         String foodId = "123-235673-123";
 
-        Map<String, Object> foodMap = new HashMap<>();
-        foodMap.put(FoodServiceImpl.RATE_ID, "Some Rate id");
+        FoodDTO foodDTO = new FoodDTO();
+        foodDTO.setRateId("Some Rate id");
 
         Mockito.when(foodRepository.getFoodsByName(Mockito.anyString())).thenReturn(Collections.emptyList());
         Mockito.when(foodRepository.addFood(Mockito.any())).thenReturn(foodId);
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addFood(foodMap));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addFood(foodDTO));
     }
 
     @Test
     public void addFood_nonValidRateId_throwsException() {
         String foodId = "123-235673-123";
 
-        Map<String, Object> foodMap = new HashMap<>();
-        foodMap.put(FoodServiceImpl.NAME, "Some Name");
+        FoodDTO foodDTO = new FoodDTO();
+        foodDTO.setName("Some Name");
 
         Mockito.when(foodRepository.getFoodsByName(Mockito.anyString())).thenReturn(Collections.emptyList());
         Mockito.when(foodRepository.addFood(Mockito.any())).thenReturn(foodId);
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addFood(foodMap));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addFood(foodDTO));
     }
 
     @Test
     public void addFood_validFoodNotExist_returnsFoodId() {
         String foodId = "123-235673-123";
 
-        Map<String, Object> foodMap = new HashMap<>();
-        foodMap.put(FoodServiceImpl.NAME, "Some Name");
-        foodMap.put(FoodServiceImpl.RATE_ID, "Some Rate Id");
+        FoodDTO foodDTO = new FoodDTO();
+        foodDTO.setName("Some Name");
+        foodDTO.setRateId("Some Rate id");
 
         Mockito.when(foodRepository.getFoodsByName(Mockito.anyString())).thenReturn(Collections.emptyList());
         Mockito.when(foodRepository.addFood(Mockito.any())).thenReturn(foodId);
 
-        String newFoodId = service.addFood(foodMap);
+        String newFoodId = service.addFood(foodDTO);
 
         Assertions.assertEquals(newFoodId, foodId);
     }
@@ -154,14 +158,19 @@ public class FoodServiceTest {
     public void addFood_nonValidFoodExist_throwsException() {
         String foodId = "123-235673-123";
 
-        Map<String, Object> foodMap = new HashMap<>();
-        foodMap.put(FoodServiceImpl.NAME, "Some Name");
-        foodMap.put(FoodServiceImpl.RATE_ID, "Some Rate Id");
+        FoodDTO foodDTO = new FoodDTO();
+        foodDTO.setName("Some Name");
+        foodDTO.setRateId("Some Rate id");
 
-        Mockito.when(foodRepository.getFoodsByName(Mockito.anyString())).thenReturn(List.of(new Food()));
+        Food food = new Food();
+        food.setId("1");
+        food.setName(foodDTO.getName());
+        food.setRateId(foodDTO.getRateId());
+
+        Mockito.when(foodRepository.getFoodsByName(Mockito.anyString())).thenReturn(List.of(food));
         Mockito.when(foodRepository.addFood(Mockito.any())).thenReturn(foodId);
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addFood(foodMap));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> service.addFood(foodDTO));
     }
 
     @Test
@@ -169,14 +178,15 @@ public class FoodServiceTest {
         String foodId = "123-235673-123";
         Boolean status = true;
 
-        Map<String, Object> foodMap = new HashMap<>();
-        foodMap.put(FoodServiceImpl.NAME, "Some Name");
-        foodMap.put(FoodServiceImpl.RATE_ID, "Some Rate Id");
+        FoodDTO foodDTO = new FoodDTO();
+        foodDTO.setName("Some Name");
+        foodDTO.setRateId("Some Rate id");
 
+        Mockito.when(foodRepository.getFoodById(Mockito.anyString())).thenReturn(new Food());
         Mockito.when(foodRepository.getFoodsByName(Mockito.anyString())).thenReturn(Collections.emptyList());
         Mockito.when(foodRepository.updateFood(Mockito.anyString(), Mockito.any())).thenReturn(status);
 
-        Boolean result = service.updateFood(foodId, foodMap);
+        Boolean result = service.updateFood(foodId, foodDTO);
 
         Assertions.assertEquals(result, status);
     }
@@ -185,7 +195,7 @@ public class FoodServiceTest {
     public void deleteFood_returnsBooleanInstance() {
         Mockito.when(foodRepository.getFoodById(Mockito.anyString())).thenReturn(new Food());
 
-        Boolean result = service.deleteFood(Mockito.anyString());
+        Boolean result = service.deleteFood("6t6wer8d7q");
         Assertions.assertInstanceOf(Boolean.class, result);
     }
 

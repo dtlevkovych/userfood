@@ -109,13 +109,13 @@ public class RateControllerTest {
 
     @Test
     public void addRate_returnsResponseEntityInstance() {
-        ResponseEntity<String> result = controller.addRate(Mockito.anyMap());
+        ResponseEntity<String> result = controller.addRate(Mockito.any());
         Assertions.assertInstanceOf(ResponseEntity.class, result);
     }
 
     @Test
     public void addRate_returnsResponseEntityOKStatus() {
-        ResponseEntity<String> result = controller.addRate(Mockito.anyMap());
+        ResponseEntity<String> result = controller.addRate(Mockito.any());
         Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
     }
 
@@ -123,21 +123,21 @@ public class RateControllerTest {
     public void addRate_returnsResponseEntityWithId() {
         String rateId = "1254-14535";
 
-        Mockito.when(rateService.addRate(Mockito.anyMap())).thenReturn(rateId);
+        Mockito.when(rateService.addRate(Mockito.any())).thenReturn(rateId);
 
-        ResponseEntity<String> result = controller.addRate(Mockito.anyMap());
+        ResponseEntity<String> result = controller.addRate(Mockito.any());
         Assertions.assertEquals(rateId, result.getData());
     }
 
     @Test
     public void updateRate_returnsResponseEntityInstance() {
-        ResponseEntity<Boolean> result = controller.updateRate(Mockito.anyString(), Mockito.anyMap());
+        ResponseEntity<Boolean> result = controller.updateRate(Mockito.anyString(), Mockito.any());
         Assertions.assertInstanceOf(ResponseEntity.class, result);
     }
 
     @Test
     public void updateRate_returnsResponseEntityOKStatus() {
-        ResponseEntity<Boolean> result = controller.updateRate(Mockito.anyString(), Mockito.anyMap());
+        ResponseEntity<Boolean> result = controller.updateRate(Mockito.anyString(), Mockito.any());
         Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
     }
 
@@ -145,9 +145,9 @@ public class RateControllerTest {
     public void updateRate_returnsResponseEntityWithTrue() {
         Boolean status = true;
 
-        Mockito.when(rateService.updateRate(Mockito.anyString(), Mockito.anyMap())).thenReturn(status);
+        Mockito.when(rateService.updateRate(Mockito.anyString(), Mockito.any())).thenReturn(status);
 
-        ResponseEntity<Boolean> result = controller.updateRate(Mockito.anyString(), Mockito.anyMap());
+        ResponseEntity<Boolean> result = controller.updateRate(Mockito.anyString(), Mockito.any());
         Assertions.assertEquals(status, result.getData());
     }
 
